@@ -10,6 +10,7 @@ import { ResourcesSchema } from './resources.model';
       { name: 'Resources', schema: ResourcesSchema },
     ])
   ],
-  providers: [ResourcesService]
+  providers: [ResourcesService],
+  exports: [ResourcesService],
 })
 export class ResourcesModule {}
