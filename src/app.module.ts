@@ -9,6 +9,7 @@ import { ConfigService } from './config/config.service';
 import { ServerModule } from './server/server.module';
 import { MemberModule } from './member/member.module';
 import { CommandsModule } from './commands/commands.module';
+import { ResourcesModule } from './resources/resources.module';
 
 const config = new ConfigService();
 @Module({
@@ -20,6 +21,7 @@ const config = new ConfigService();
     ServerModule,
     MemberModule,
     CommandsModule,
+    ResourcesModule,
   ],
   controllers: [AppController],
 })
