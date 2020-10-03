@@ -9,6 +9,8 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) => M
     const mongoUri = await mongod.getUri();
     return {
       uri: mongoUri,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       ...options,
     }
   },

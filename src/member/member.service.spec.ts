@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MemberService } from './member.service';
 import { ConfigService } from '../config/config.service';
 import { memberSchema } from './member.model';
+import { rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
 
 describe('MemberService', () => {
   let service: MemberService;
@@ -12,7 +13,7 @@ describe('MemberService', () => {
     const config = new ConfigService();
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        MongooseModule.forRoot(config.mongoURL, { useNewUrlParser: true }),
+        rootMongooseTestModule(),
         MongooseModule.forFeature([{ name: 'Member', schema: memberSchema }]),
       ],
       providers: [MemberService],

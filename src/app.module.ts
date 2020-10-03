@@ -15,7 +15,7 @@ import { TroopsModule } from './troops/troops.module';
 const config = new ConfigService();
 @Module({
   imports: [
-    MongooseModule.forRoot(config.mongoURL, { useNewUrlParser: true }),
+    MongooseModule.forRoot(config.mongoURL, { useNewUrlParser: true, useUnifiedTopology: true }),
     ConfigModule,
     DiscordModule,
     ScheduleModule.forRoot(),
