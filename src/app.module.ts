@@ -10,6 +10,7 @@ import { ServerModule } from './server/server.module';
 import { MemberModule } from './member/member.module';
 import { CommandsModule } from './commands/commands.module';
 import { ResourcesModule } from './resources/resources.module';
+import { TroopsModule } from './troops/troops.module';
 
 const config = new ConfigService();
 @Module({
@@ -22,6 +23,7 @@ const config = new ConfigService();
     MemberModule,
     CommandsModule,
     ResourcesModule,
+    TroopsModule,
   ],
   controllers: [AppController],
 })

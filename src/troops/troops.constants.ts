@@ -1,0 +1,4 @@
+
+export const GATHERER_CREATION_FOOD_COST = 1;
+export const GATHERER_DAILY_UPKEEP_COST = 1;
+export const GATHERER_WORK_FOOD_YIELD = 1;

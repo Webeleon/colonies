@@ -31,5 +31,16 @@ export class ResourcesService {
      memberResources.food += foodSupplyToAdd;
      await memberResources.save();
   }
+
+  async consumeFood(memberDiscordId: string, foodToConsume: number): Promise<void> {
+    const memberResources = await this.getResourcesForMember(memberDiscordId) ;
+    if (memberResources.food < foodToConsume) {
+      // TODO: create real error and error management system with i18n message and serializable codes
+      throw new Error('insufficient food');
+    }
+
+    memberResources.food -= foodToConsume;
+    await memberResources.save();
+  }
 }
 
