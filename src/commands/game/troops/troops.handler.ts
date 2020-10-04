@@ -14,7 +14,7 @@ export class TroopsHandler implements ICommandHandler {
   description = 'display troops for the requesting member';
 
   test(content: string): boolean {
-    return /^col[onie]? troops/i.test(content);
+    return /^colo?n?i?e? troops/i.test(content);
   }
 
   async execute(message: Message): Promise<void> {
