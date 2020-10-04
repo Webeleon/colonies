@@ -14,9 +14,10 @@ import { TroopsHandler } from './game/troops/troops.handler';
 import { WorkHandler } from './game/work/work.handler';
 import { RecruitHandler } from './game/recruit/recruit.handler';
 import { ResourcesHandler } from './game/resources/resources.handler';
+import { TroopsModule } from '../troops/troops.module';
 
 @Module({
-  imports: [ConfigModule, DiscordModule, ResourcesModule],
+  imports: [ConfigModule, DiscordModule, ResourcesModule, TroopsModule],
   providers: [
     CommandsService,
     PingHandler,

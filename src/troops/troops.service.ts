@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 
 import { TroopsDocument } from './troops.interface';
 import { ResourcesService } from '../resources/resources.service';
-import { GATHERER_CREATION_FOOD_COST } from './troops.constants';
+import { GATHERER_CREATION_FOOD_COST, SCAVENGER_FOOD_COST } from './troops.constants';
 
 @Injectable()
 export class TroopsService {
@@ -29,6 +29,13 @@ export class TroopsService {
     const troops = await this.getMemberTroops(memberDiscordId);
     // TODO: test if troop limit is ok when buildings are ok
     troops.gatherers += 1;
+    await troops.save();
+  }
+
+  async recruitScavenger(memberDiscordId): Promise<void> {
+    await this.resourcesService.consumeFood(memberDiscordId, SCAVENGER_FOOD_COST) ;
+    const troops = await this.getMemberTroops(memberDiscordId);
+    troops.scavengers += 1;
     await troops.save();
   }
 }

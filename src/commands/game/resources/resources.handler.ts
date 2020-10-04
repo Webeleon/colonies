@@ -21,8 +21,10 @@ export class ResourcesHandler implements ICommandHandler {
     const resources = await this.resourcesService.getResourcesForMember(message.author.id);
 
     const resourceEmbed = new MessageEmbed()
+      .setColor('BLUE')
       .setTitle(`${message.author.username} resources inventory`)
-      .addField('Food', resources.food);
+      .addField('Food', resources.food)
+      .addField('Building materials', resources.buildingMaterials ?? 0);
 
     message.channel.send(resourceEmbed);
   }

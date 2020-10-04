@@ -12,6 +12,7 @@ import { ResourcesModule } from '../resources/resources.module';
     ]),
     ResourcesModule,
   ],
-  providers: [TroopsService]
+  providers: [TroopsService],
+  exports: [TroopsService],
 })
 export class TroopsModule {}

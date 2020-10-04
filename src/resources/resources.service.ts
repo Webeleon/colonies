@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { ResourcesDocument } from './resources.interface';
-import { INITIAL_FOOD_SUPPLY } from './resources.constants';
+import { INITIAL_BUILDING_MATERIAL_SUPPLY, INITIAL_FOOD_SUPPLY } from './resources.constants';
 
 @Injectable()
 export class ResourcesService {
@@ -20,6 +20,7 @@ export class ResourcesService {
       return this.ResourcesModel.create({
         memberDiscordId,
         food: INITIAL_FOOD_SUPPLY,
+        buildingMaterials: INITIAL_BUILDING_MATERIAL_SUPPLY,
       });
     }
 
@@ -40,6 +41,21 @@ export class ResourcesService {
     }
 
     memberResources.food -= foodToConsume;
+    await memberResources.save();
+  }
+
+  async addBuildingMaterialsToMemberResources(memberDiscordId: string, buildingMaterialsToAdd: number): Promise<void> {
+    const memberResources = await this.getResourcesForMember(memberDiscordId);
+    memberResources.buildingMaterials += buildingMaterialsToAdd;
+    await memberResources.save();
+  }
+
+  async consumeBuildingMaterials(memberDiscordId: string, buildingMaterialToConsumme: number): Promise<void> {
+    const memberResources = await this.getResourcesForMember(memberDiscordId);
+    if (memberResources.buildingMaterials < buildingMaterialToConsumme) {
+      throw new Error('insufficient building materials');
+    }
+    memberResources.buildingMaterials -= buildingMaterialToConsumme;
     await memberResources.save();
   }
 }
