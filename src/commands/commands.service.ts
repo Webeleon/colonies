@@ -9,6 +9,7 @@ import { StatusHandler } from './status/status.handler';
 import { ResourcesHandler } from './game/resources/resources.handler';
 import { RecruitHandler } from './game/recruit/recruit.handler';
 import { TroopsHandler } from './game/troops/troops.handler';
+import { WorkHandler } from './game/work/work.handler';
 
 @Injectable()
 export class CommandsService {
@@ -22,6 +23,7 @@ export class CommandsService {
     private readonly gameResourcesHandler: ResourcesHandler,
     private readonly gameRecruitementHandler: RecruitHandler,
     private readonly gameTroopsHandler: TroopsHandler,
+    private readonly gameWorkHandler: WorkHandler,
   ) {
     this.commandHandlers = [
       pingHandler,
@@ -31,6 +33,7 @@ export class CommandsService {
       gameResourcesHandler,
       gameRecruitementHandler,
       gameTroopsHandler,
+      gameWorkHandler,
     ];
   }
   register(client: Client) {
