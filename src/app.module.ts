@@ -11,6 +11,7 @@ import { MemberModule } from './member/member.module';
 import { CommandsModule } from './commands/commands.module';
 import { ResourcesModule } from './resources/resources.module';
 import { TroopsModule } from './troops/troops.module';
+import { WorkModule } from './work/work.module';
 
 const config = new ConfigService();
 @Module({
@@ -24,6 +25,7 @@ const config = new ConfigService();
     CommandsModule,
     ResourcesModule,
     TroopsModule,
+    WorkModule,
   ],
   controllers: [AppController],
 })

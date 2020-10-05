@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { CommandsService } from './commands.service';
 import { PingHandler } from './ping/ping.handler';
 import { InviteHandler } from './invite/invite.handler';
@@ -11,6 +12,8 @@ import { closeInMongodConnection, rootMongooseTestModule } from '../test-utils/m
 import { RecruitHandler } from './game/recruit/recruit.handler';
 import { TroopsModule } from '../troops/troops.module';
 import { TroopsHandler } from './game/troops/troops.handler';
+import { WorkModule } from '../work/work.module';
+import { WorkHandler } from './game/work/work.handler';
 
 describe('CommandsService', () => {
   let service: CommandsService;
@@ -19,7 +22,7 @@ describe('CommandsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         rootMongooseTestModule(),
-        ConfigModule, ResourcesModule, TroopsModule,
+        ConfigModule, ResourcesModule, TroopsModule, WorkModule,
       ],
       providers: [
         CommandsService,
@@ -30,6 +33,7 @@ describe('CommandsService', () => {
         ResourcesHandler,
         RecruitHandler,
         TroopsHandler,
+        WorkHandler,
       ],
     }).compile();
 
