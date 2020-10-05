@@ -35,7 +35,12 @@ export class TroopsService {
   async recruitScavenger(memberDiscordId): Promise<void> {
     await this.resourcesService.consumeFood(memberDiscordId, SCAVENGER_FOOD_COST) ;
     const troops = await this.getMemberTroops(memberDiscordId);
-    troops.scavengers += 1;
+    if (!troops.scavengers) {
+      troops.scavengers = 1;
+    } else {
+      troops.scavengers += 1;
+    }
+
     await troops.save();
   }
 }
