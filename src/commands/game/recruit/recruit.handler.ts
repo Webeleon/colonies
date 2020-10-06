@@ -3,6 +3,11 @@ import { Message, MessageEmbed } from 'discord.js';
 
 import { ICommandHandler } from '../../ICommandHandler';
 import { TroopsService } from '../../../troops/troops.service';
+import {
+  GATHERER_CREATION_FOOD_COST,
+  GATHERER_WORK_FOOD_YIELD, SCAVENGER_BUILDING_MATERIAL_YIELD,
+  SCAVENGER_FOOD_COST, SCAVENGER_WORK_COST,
+} from '../../../troops/troops.constants';
 
 @Injectable()
 export class RecruitHandler implements ICommandHandler {
@@ -31,7 +36,7 @@ export class RecruitHandler implements ICommandHandler {
       } else if (/^scavenger/i.test(troopType)) {
         await this.troopsService.recruitScavenger(message.author.id);
       } else {
-        throw new Error(`\`${troopType}\` is not a valid troop type`)
+        return this.sendHelp(message)
       }
 
       const embed = new MessageEmbed()
@@ -45,6 +50,24 @@ export class RecruitHandler implements ICommandHandler {
         .setDescription(error.message)
       message.channel.send(errorEmbed);
     }
+  }
+
+  sendHelp(message: Message): void {
+    const embed = new MessageEmbed()
+      .setColor('BLUE')
+      .setTitle('recruitment help')
+      .setDescription('here are the valid troops type')
+      .addFields([
+        {
+          name: 'gatherers',
+          value: `cost ${GATHERER_CREATION_FOOD_COST} food, produce ${GATHERER_WORK_FOOD_YIELD} food while working`,
+        },
+        {
+          name: 'scavengers',
+          value: `cost ${SCAVENGER_FOOD_COST} food, produce ${SCAVENGER_BUILDING_MATERIAL_YIELD} building materials in exchange for ${SCAVENGER_WORK_COST} food while working`,
+        }
+      ]);
+    message.channel.send(embed);
   }
 }
 
