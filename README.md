@@ -34,6 +34,17 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Running the app in docker
+
+To start the container, run:
+
+```
+$ docker-compose up
+```
+
+When it run, go to: `http://localhost:5000/health` 
+
+
 ## Test
 
 ```bash
