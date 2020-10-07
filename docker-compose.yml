@@ -37,5 +37,5 @@ services:
     image: "mongo"
     env_file:
       - .env
-    ports:
+    expose:
       - "27017:27017"
