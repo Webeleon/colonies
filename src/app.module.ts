@@ -12,6 +12,7 @@ import { CommandsModule } from './commands/commands.module';
 import { ResourcesModule } from './resources/resources.module';
 import { TroopsModule } from './troops/troops.module';
 import { WorkModule } from './work/work.module';
+import { BuildingsModule } from './buildings/buildings.module';
 
 const config = new ConfigService();
 @Module({
@@ -26,6 +27,7 @@ const config = new ConfigService();
     ResourcesModule,
     TroopsModule,
     WorkModule,
+    BuildingsModule,
   ],
   controllers: [AppController],
 })

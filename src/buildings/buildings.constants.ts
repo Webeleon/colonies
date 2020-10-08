@@ -1,0 +1,11 @@
+// HOMES
+export const HOME_DEFAULT = 1;
+export const HOME_CONSTRUCTION_COST = 10;
+
+// FARMS
+export const FARMS_DEFAULT = 0;
+export const FARMS_CONSTRUCTION_COST = 100;
+
+// LANDFILLS
+export const LANDFILLS_DEFAULT = 0;
+export const LANDFILLS_CONSTRUCTION_COST = 100;
