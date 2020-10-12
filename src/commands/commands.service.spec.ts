@@ -14,6 +14,8 @@ import { TroopsModule } from '../troops/troops.module';
 import { TroopsHandler } from './game/troops/troops.handler';
 import { WorkModule } from '../work/work.module';
 import { WorkHandler } from './game/work/work.handler';
+import { BuildHandler } from './game/buidlings/build/build.handler';
+import { BuildingsModule } from '../buildings/buildings.module';
 
 describe('CommandsService', () => {
   let service: CommandsService;
@@ -22,7 +24,7 @@ describe('CommandsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         rootMongooseTestModule(),
-        ConfigModule, ResourcesModule, TroopsModule, WorkModule,
+        ConfigModule, ResourcesModule, TroopsModule, WorkModule, BuildingsModule,
       ],
       providers: [
         CommandsService,
@@ -34,6 +36,7 @@ describe('CommandsService', () => {
         RecruitHandler,
         TroopsHandler,
         WorkHandler,
+        BuildHandler,
       ],
     }).compile();
 

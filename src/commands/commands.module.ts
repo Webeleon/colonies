@@ -16,9 +16,12 @@ import { RecruitHandler } from './game/recruit/recruit.handler';
 import { ResourcesHandler } from './game/resources/resources.handler';
 import { TroopsModule } from '../troops/troops.module';
 import { WorkModule } from '../work/work.module';
+import { BuildHandler } from './game/buidlings/build/build.handler';
+import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
+import { BuildingsModule } from '../buildings/buildings.module';
 
 @Module({
-  imports: [ConfigModule, DiscordModule, ResourcesModule, TroopsModule, WorkModule],
+  imports: [ConfigModule, DiscordModule, ResourcesModule, TroopsModule, WorkModule, BuildingsModule],
   providers: [
     CommandsService,
     PingHandler,
@@ -29,6 +32,8 @@ import { WorkModule } from '../work/work.module';
     WorkHandler,
     RecruitHandler,
     ResourcesHandler,
+    BuildHandler,
+    BuildingsHandler,
   ],
   exports: [CommandsService],
 })

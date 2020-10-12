@@ -37,6 +37,7 @@ export class WorkService {
 
   async startGatherersWork(context: IWorkContext): Promise<IGatherersWorkReport> {
     const foodProduced = (context.troops.gatherers ?? 0) * GATHERER_WORK_FOOD_YIELD
+    // TODO: use resourcesService methods instead!!
     context.resources.food += foodProduced
     await context.resources.save();
     return {
@@ -51,6 +52,7 @@ export class WorkService {
     try {
       await this.resourceService.consumeFood(context.memberDiscordId, foodConsumed);
       const buildingMaterialsProduced = numberOfTroops * SCAVENGER_BUILDING_MATERIAL_YIELD;
+      // TODO: use resourceService methods instead!
       if (!context.resources.buildingMaterials) {
         context.resources.buildingMaterials = buildingMaterialsProduced;
       } else {
