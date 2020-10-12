@@ -22,9 +22,8 @@ describe('BuildHandler', () => {
     expect(buildHandler).toBeDefined();
   });
 
-  it('should respond to "colonie build <builing type>" case insensitive', () => {
+  it('should respond to "colonie build <builing type>" case insensitie', () => {
     expect(buildHandler.test('colonie build farm')).toBeTruthy();
-    expect(buildHandler.test('colonie build')).toBeTruthy();
     expect(buildHandler.test('COLONIE BUILD home')).toBeTruthy();
   });
 });

@@ -21,7 +21,7 @@ export class BuildHandler implements ICommandHandler {
   descriptions = 'build the specific building'
 
   test(content: string): boolean {
-    return /^colonie build( \w+)?/i.test(content);
+    return /^colonie build (\w+)?/i.test(content);
   }
 
   async execute(message: Message): Promise<void> {
