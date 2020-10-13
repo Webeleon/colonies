@@ -19,7 +19,7 @@ export class BuildingsProductionsService {
     private readonly discordService: DiscordService,
   ) {}
 
-  @Cron('* 0,12 * * *')
+  @Cron('0 0,12 * * *')
   async massProduction(): Promise<void> {
     debug('Start building production');
     const allMembersProductionBuildingProfile = await this.buildingsService.getAllProductionBuildings();
