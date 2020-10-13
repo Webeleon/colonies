@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { TroopsHandler } from './troops.handler';
 import { TroopsModule } from '../../../troops/troops.module';
-import { closeInMongodConnection, rootMongooseTestModule } from '../../../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../../../test-utils/mongo/MongooseTestModule';
 
 describe('TroopsHandler', () => {
   let troopsHandler: TroopsHandler;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        rootMongooseTestModule(),
-        TroopsModule,
-      ],
+      imports: [rootMongooseTestModule(), TroopsModule],
       providers: [TroopsHandler],
     }).compile();
 
@@ -31,6 +31,8 @@ describe('TroopsHandler', () => {
     expect(troopsHandler.test('COLOnie TrOoPs')).toBeTruthy();
     expect(troopsHandler.test('col troops')).toBeTruthy();
     expect(troopsHandler.test('COLO troops')).toBeTruthy();
-    expect(troopsHandler.test('it should start with the command colonie troops')).toBeFalsy();
+    expect(
+      troopsHandler.test('it should start with the command colonie troops'),
+    ).toBeFalsy();
   });
 });

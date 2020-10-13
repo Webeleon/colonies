@@ -12,11 +12,16 @@ import { CommandsModule } from './commands/commands.module';
 import { ResourcesModule } from './resources/resources.module';
 import { TroopsModule } from './troops/troops.module';
 import { WorkModule } from './work/work.module';
+import { BuildingsModule } from './buildings/buildings.module';
+import { BuildingsProductionsModule } from './buildings-productions/buildings-productions.module';
 
 const config = new ConfigService();
 @Module({
   imports: [
-    MongooseModule.forRoot(config.mongoURL, { useNewUrlParser: true, useUnifiedTopology: true }),
+    MongooseModule.forRoot(config.mongoURL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
     ConfigModule,
     DiscordModule,
     ScheduleModule.forRoot(),
@@ -26,6 +31,8 @@ const config = new ConfigService();
     ResourcesModule,
     TroopsModule,
     WorkModule,
+    BuildingsModule,
+    BuildingsProductionsModule,
   ],
   controllers: [AppController],
 })

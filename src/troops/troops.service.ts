@@ -4,12 +4,15 @@ import { Model } from 'mongoose';
 
 import { TroopsDocument } from './troops.interface';
 import { ResourcesService } from '../resources/resources.service';
-import { GATHERER_CREATION_FOOD_COST, SCAVENGER_FOOD_COST } from './troops.constants';
+import {
+  GATHERER_CREATION_FOOD_COST,
+  SCAVENGER_FOOD_COST,
+} from './troops.constants';
 
 @Injectable()
 export class TroopsService {
   constructor(
-    @InjectModel('Troops')  private readonly TroopsModel: Model<TroopsDocument>,
+    @InjectModel('Troops') private readonly TroopsModel: Model<TroopsDocument>,
     private readonly resourcesService: ResourcesService,
   ) {}
 
@@ -17,15 +20,18 @@ export class TroopsService {
     const memberTroops = await this.TroopsModel.findOne({ memberDiscordId });
     if (!memberTroops) {
       return this.TroopsModel.create({
-          memberDiscordId,
-          gatherers: 0,
+        memberDiscordId,
+        gatherers: 0,
       });
     }
     return memberTroops;
   }
 
   async recruitGatherer(memberDiscordId: string): Promise<void> {
-    await this.resourcesService.consumeFood(memberDiscordId, GATHERER_CREATION_FOOD_COST);
+    await this.resourcesService.consumeFood(
+      memberDiscordId,
+      GATHERER_CREATION_FOOD_COST,
+    );
     const troops = await this.getMemberTroops(memberDiscordId);
     // TODO: test if troop limit is ok when buildings are ok
     troops.gatherers += 1;
@@ -33,7 +39,10 @@ export class TroopsService {
   }
 
   async recruitScavenger(memberDiscordId): Promise<void> {
-    await this.resourcesService.consumeFood(memberDiscordId, SCAVENGER_FOOD_COST) ;
+    await this.resourcesService.consumeFood(
+      memberDiscordId,
+      SCAVENGER_FOOD_COST,
+    );
     const troops = await this.getMemberTroops(memberDiscordId);
     if (!troops.scavengers) {
       troops.scavengers = 1;

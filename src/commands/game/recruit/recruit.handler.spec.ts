@@ -1,6 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RecruitHandler } from './recruit.handler';
-import { closeInMongodConnection, rootMongooseTestModule } from '../../../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../../../test-utils/mongo/MongooseTestModule';
 import { TroopsModule } from '../../../troops/troops.module';
 
 describe('RecruitHandler', () => {
@@ -8,10 +11,7 @@ describe('RecruitHandler', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        rootMongooseTestModule(),
-        TroopsModule,
-      ],
+      imports: [rootMongooseTestModule(), TroopsModule],
       providers: [RecruitHandler],
     }).compile();
 
@@ -19,7 +19,7 @@ describe('RecruitHandler', () => {
   });
 
   afterAll(async () => {
-      await closeInMongodConnection();
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

@@ -7,9 +7,7 @@ import { ResourcesModule } from '../resources/resources.module';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: 'Troops', schema: TroopsSchema },
-    ]),
+    MongooseModule.forFeature([{ name: 'Troops', schema: TroopsSchema }]),
     ResourcesModule,
   ],
   providers: [TroopsService],

@@ -13,9 +13,7 @@ describe('TroopsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         rootMongooseTestModule(),
-        MongooseModule.forFeature([
-          { name: 'Troops', schema: TroopsSchema },
-        ]),
+        MongooseModule.forFeature([{ name: 'Troops', schema: TroopsSchema }]),
         ResourcesModule,
       ],
       providers: [TroopsService],

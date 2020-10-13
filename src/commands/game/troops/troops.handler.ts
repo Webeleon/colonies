@@ -6,9 +6,7 @@ import { TroopsService } from '../../../troops/troops.service';
 
 @Injectable()
 export class TroopsHandler implements ICommandHandler {
-  constructor(
-    private readonly troopsService: TroopsService,
-  ) {}
+  constructor(private readonly troopsService: TroopsService) {}
 
   name = 'troops';
   description = 'display troops for the requesting member';

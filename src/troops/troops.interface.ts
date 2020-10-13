@@ -8,4 +8,4 @@ export interface ITroops {
   updatedAt: Date;
 }
 
-export interface TroopsDocument extends ITroops, Document {};
+export interface TroopsDocument extends ITroops, Document {}

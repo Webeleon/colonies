@@ -4,9 +4,7 @@ import { TroopsModule } from '../troops/troops.module';
 import { ResourcesModule } from '../resources/resources.module';
 
 @Module({
-  imports: [
-    TroopsModule, ResourcesModule,
-  ],
+  imports: [TroopsModule, ResourcesModule],
   providers: [WorkService],
   exports: [WorkService],
 })

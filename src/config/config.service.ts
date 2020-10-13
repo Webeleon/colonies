@@ -13,8 +13,7 @@ export class ConfigService {
     this.port = parseInt(process.env.PORT) || 5000;
     this.discordToken = process.env.DISCORD_API_TOKEN || '';
     this.discordClientId = process.env.DISCORD_CLIENT_ID || '';
-    this.mongoURL =
-      process.env.MONGO_URL || 'mongodb://localhost/colonie';
+    this.mongoURL = process.env.MONGO_URL || 'mongodb://localhost/colonie';
   }
 
   getBotInviteLink(permissions = '1075305537'): string {

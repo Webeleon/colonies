@@ -15,7 +15,7 @@ describe('RessourcesService', () => {
         rootMongooseTestModule(),
         MongooseModule.forFeature([
           { name: 'Resources', schema: ResourcesSchema },
-        ])
+        ]),
       ],
       providers: [ResourcesService],
     }).compile();
@@ -28,9 +28,9 @@ describe('RessourcesService', () => {
   });
 
   it('should create resource inventory on request', async () => {
-      const member1 = await service.getResourcesForMember('member1');
-      expect(member1.memberDiscordId).toEqual('member1');
-      expect(member1.food).toEqual(INITIAL_FOOD_SUPPLY);
+    const member1 = await service.getResourcesForMember('member1');
+    expect(member1.memberDiscordId).toEqual('member1');
+    expect(member1.food).toEqual(INITIAL_FOOD_SUPPLY);
   });
 
   it('can add food to a player resources', async () => {
