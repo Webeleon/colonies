@@ -9,7 +9,7 @@ import { IBuilding } from '../buildings/buildings.interfaces';
 import { ResourcesService } from '../resources/resources.service';
 import { FARMS_YIELD } from '../buildings/buildings.constants';
 
-const debug = (message) => Logger.debug(message, 'BuildingProductionService');
+const debug = message => Logger.debug(message, 'BuildingProductionService');
 
 @Injectable()
 export class BuildingsProductionsService {
@@ -21,9 +21,9 @@ export class BuildingsProductionsService {
 
   @Cron('* 0,12 * * *')
   async massProduction(): Promise<void> {
-     debug('Start building production');
+    debug('Start building production');
     const allMembersProductionBuildingProfile = await this.buildingsService.getAllProductionBuildings();
-    debug(`found ${allMembersProductionBuildingProfile.length} to produce`)
+    debug(`found ${allMembersProductionBuildingProfile.length} to produce`);
     for (const profile of allMembersProductionBuildingProfile) {
       await this.memberProduction(profile);
     }
@@ -34,27 +34,34 @@ export class BuildingsProductionsService {
     const buildingMaterialsProduced = await this.landfillProduction(profile);
 
     // TODO extract somewhere
-    const member = await this.discordService.client
-      .users.fetch(profile.memberDiscordId)
+    const member = await this.discordService.client.users.fetch(
+      profile.memberDiscordId,
+    );
     const embed = new MessageEmbed()
       .setColor('BLUE')
       .setTitle('Your buildings produced some nice resources!')
       .addField('Farms', foodProduced)
       .addField('Landfills', buildingMaterialsProduced);
-    member.send(embed)
+    member.send(embed);
   }
 
   async farmProduction(profile): Promise<number> {
     if (profile.farms === 0) return 0;
     const foodProduced = profile.farms * FARMS_YIELD;
-    await this.resourceService.addFoodToMemberResources(profile.memberDiscordId, foodProduced);
+    await this.resourceService.addFoodToMemberResources(
+      profile.memberDiscordId,
+      foodProduced,
+    );
     return foodProduced;
   }
 
   async landfillProduction(profile: IBuilding): Promise<number> {
     if (profile.landfills === 0) return 0;
     const buildingMaterialsProduced = profile.landfills * FARMS_YIELD;
-    await this.resourceService.addBuildingMaterialsToMemberResources(profile.memberDiscordId, buildingMaterialsProduced);
+    await this.resourceService.addBuildingMaterialsToMemberResources(
+      profile.memberDiscordId,
+      buildingMaterialsProduced,
+    );
     return buildingMaterialsProduced;
   }
 }

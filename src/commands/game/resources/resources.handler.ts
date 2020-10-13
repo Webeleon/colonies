@@ -6,9 +6,7 @@ import { ResourcesService } from '../../../resources/resources.service';
 
 @Injectable()
 export class ResourcesHandler implements ICommandHandler {
-  constructor(
-    private readonly resourcesService: ResourcesService,
-  ) {}
+  constructor(private readonly resourcesService: ResourcesService) {}
 
   name = 'colonie resources';
   description = 'display colonie resources';
@@ -18,7 +16,9 @@ export class ResourcesHandler implements ICommandHandler {
   }
 
   async execute(message: Message): Promise<void> {
-    const resources = await this.resourcesService.getResourcesForMember(message.author.id);
+    const resources = await this.resourcesService.getResourcesForMember(
+      message.author.id,
+    );
 
     const resourceEmbed = new MessageEmbed()
       .setColor('BLUE')

@@ -3,22 +3,25 @@ import { Message, MessageEmbed } from 'discord.js';
 
 import { ICommandHandler } from '../../../ICommandHandler';
 import {
-  FARM_TYPE, FARMS_CONSTRUCTION_COST,
+  FARM_TYPE,
+  FARMS_CONSTRUCTION_COST,
   FARMS_YIELD,
-  HOME_ADDED_TROOPS, HOME_CONSTRUCTION_COST,
+  HOME_ADDED_TROOPS,
+  HOME_CONSTRUCTION_COST,
   HOME_TYPE,
-  LANDFILL_TYPE, LANDFILLS_CONSTRUCTION_COST, LANDFILLS_YIELD, PRODUCTION_INTERVAL_IN_HOURS,
+  LANDFILL_TYPE,
+  LANDFILLS_CONSTRUCTION_COST,
+  LANDFILLS_YIELD,
+  PRODUCTION_INTERVAL_IN_HOURS,
 } from '../../../../buildings/buildings.constants';
 import { BuildingsService } from '../../../../buildings/buildings.service';
 
 @Injectable()
 export class BuildHandler implements ICommandHandler {
-  constructor(
-    private readonly buildingsService: BuildingsService,
-  ) {}
+  constructor(private readonly buildingsService: BuildingsService) {}
 
   name = 'colonie build <building type>';
-  descriptions = 'build the specific building'
+  descriptions = 'build the specific building';
 
   test(content: string): boolean {
     return /^colonie build (\w+)?/i.test(content);
@@ -28,7 +31,10 @@ export class BuildHandler implements ICommandHandler {
     const [cmd, buildingType] = message.content.match(/^colonie build( \w+)?/i);
 
     try {
-      const embed = await this.dispatchBuildByBuildingType(buildingType.trim(), message);
+      const embed = await this.dispatchBuildByBuildingType(
+        buildingType.trim(),
+        message,
+      );
       message.channel.send(embed);
     } catch (error) {
       const errorEmbed = new MessageEmbed()
@@ -39,7 +45,10 @@ export class BuildHandler implements ICommandHandler {
     }
   }
 
-  private async dispatchBuildByBuildingType(buildingType: string, message: Message): Promise<MessageEmbed> {
+  private async dispatchBuildByBuildingType(
+    buildingType: string,
+    message: Message,
+  ): Promise<MessageEmbed> {
     const embed = new MessageEmbed();
 
     if (buildingType === HOME_TYPE) {
@@ -62,8 +71,8 @@ export class BuildHandler implements ICommandHandler {
         },
         {
           name: `${LANDFILL_TYPE} (${LANDFILLS_CONSTRUCTION_COST} :construction_materials:)`,
-          value: `produce ${LANDFILLS_YIELD} building materials every ${PRODUCTION_INTERVAL_IN_HOURS}h`
-        }
+          value: `produce ${LANDFILLS_YIELD} building materials every ${PRODUCTION_INTERVAL_IN_HOURS}h`,
+        },
       ]);
       return embed;
     }

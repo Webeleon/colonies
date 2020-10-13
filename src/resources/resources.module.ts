@@ -6,9 +6,7 @@ import { ResourcesSchema } from './resources.model';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: 'Resources', schema: ResourcesSchema },
-    ])
+    MongooseModule.forFeature([{ name: 'Resources', schema: ResourcesSchema }]),
   ],
   providers: [ResourcesService],
   exports: [ResourcesService],

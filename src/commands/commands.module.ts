@@ -21,7 +21,14 @@ import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { BuildingsModule } from '../buildings/buildings.module';
 
 @Module({
-  imports: [ConfigModule, DiscordModule, ResourcesModule, TroopsModule, WorkModule, BuildingsModule],
+  imports: [
+    ConfigModule,
+    DiscordModule,
+    ResourcesModule,
+    TroopsModule,
+    WorkModule,
+    BuildingsModule,
+  ],
   providers: [
     CommandsService,
     PingHandler,

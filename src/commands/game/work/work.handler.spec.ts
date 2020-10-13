@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { WorkHandler } from './work.handler';
 import { WorkModule } from '../../../work/work.module';
-import { closeInMongodConnection, rootMongooseTestModule } from '../../../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../../../test-utils/mongo/MongooseTestModule';
 
 describe('WorkHandler', () => {
   let workHandler: WorkHandler;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        rootMongooseTestModule(),
-        WorkModule,
-      ],
+      imports: [rootMongooseTestModule(), WorkModule],
       providers: [WorkHandler],
     }).compile();
 

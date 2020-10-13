@@ -7,6 +7,6 @@ import { ResourcesModule } from '../resources/resources.module';
 
 @Module({
   imports: [BuildingsModule, MemberModule, DiscordModule, ResourcesModule],
-  providers: [BuildingsProductionsService]
+  providers: [BuildingsProductionsService],
 })
 export class BuildingsProductionsModule {}

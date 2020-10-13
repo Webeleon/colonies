@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+import { Document } from 'mongoose';
 
 export interface IBuilding {
   memberDiscordId: string;
@@ -9,4 +9,4 @@ export interface IBuilding {
   updatedAt: Date;
 }
 
-export interface BuildingDocument extends IBuilding, Document {};
+export interface BuildingDocument extends IBuilding, Document {}

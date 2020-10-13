@@ -8,10 +8,7 @@ describe('BuildHandler', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        rootMongooseTestModule(),
-        BuildingsModule
-      ],
+      imports: [rootMongooseTestModule(), BuildingsModule],
       providers: [BuildHandler],
     }).compile();
 

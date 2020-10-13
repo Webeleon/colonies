@@ -2,7 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { BuildingsService } from './buildings.service';
-import { closeInMongodConnection, rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../test-utils/mongo/MongooseTestModule';
 import { BuildingSchema } from './buildings.model';
 import { ResourcesService } from '../resources/resources.service';
 import { ResourcesModule } from '../resources/resources.module';
@@ -15,7 +18,7 @@ describe('BuildingsService', () => {
       imports: [
         rootMongooseTestModule(),
         MongooseModule.forFeature([
-          { name: 'Buildings', schema: BuildingSchema }
+          { name: 'Buildings', schema: BuildingSchema },
         ]),
         ResourcesModule,
       ],
@@ -26,7 +29,7 @@ describe('BuildingsService', () => {
   });
 
   afterAll(async () => {
-      await closeInMongodConnection();
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

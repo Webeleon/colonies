@@ -18,7 +18,10 @@ import { BuildingsProductionsModule } from './buildings-productions/buildings-pr
 const config = new ConfigService();
 @Module({
   imports: [
-    MongooseModule.forRoot(config.mongoURL, { useNewUrlParser: true, useUnifiedTopology: true }),
+    MongooseModule.forRoot(config.mongoURL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
     ConfigModule,
     DiscordModule,
     ScheduleModule.forRoot(),
