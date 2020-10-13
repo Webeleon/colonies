@@ -35,7 +35,7 @@ export class WorkService {
     }
   }
 
-  async startGatherersWork(context: IWorkContext): Promise<IGatherersWorkReport> {
+  private async startGatherersWork(context: IWorkContext): Promise<IGatherersWorkReport> {
     const foodProduced = (context.troops.gatherers ?? 0) * GATHERER_WORK_FOOD_YIELD
     // TODO: use resourcesService methods instead!!
     context.resources.food += foodProduced
@@ -46,7 +46,7 @@ export class WorkService {
     }
   }
 
-  async startScavengersWork(context: IWorkContext): Promise<IScavengersWorkReports> {
+  private async startScavengersWork(context: IWorkContext): Promise<IScavengersWorkReports> {
     const numberOfTroops = context.troops.scavengers ?? 0;
     const foodConsumed = numberOfTroops * SCAVENGER_WORK_COST;
     try {

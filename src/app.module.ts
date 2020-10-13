@@ -13,6 +13,7 @@ import { ResourcesModule } from './resources/resources.module';
 import { TroopsModule } from './troops/troops.module';
 import { WorkModule } from './work/work.module';
 import { BuildingsModule } from './buildings/buildings.module';
+import { BuildingsProductionsModule } from './buildings-productions/buildings-productions.module';
 
 const config = new ConfigService();
 @Module({
@@ -28,6 +29,7 @@ const config = new ConfigService();
     TroopsModule,
     WorkModule,
     BuildingsModule,
+    BuildingsProductionsModule,
   ],
   controllers: [AppController],
 })

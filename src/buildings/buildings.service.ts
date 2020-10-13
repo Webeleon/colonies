@@ -19,6 +19,22 @@ export class BuildingsService {
     private readonly resourceService: ResourcesService,
   ) {}
 
+  async getAllProductionBuildings(): Promise<BuildingDocument[]> {
+    return this.buildingModel.find()
+      .or([
+        {
+          farms: {
+            $gt: 0
+          }
+        },
+        {
+          landfills: {
+            $gt: 0
+          }
+        }
+      ])
+  }
+
   // GET or create building for member
   async getBuildingsForMember(memberDiscordId): Promise<BuildingDocument> {
     const memberBuildings = await this.buildingModel.findOne({ memberDiscordId });
