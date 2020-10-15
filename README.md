@@ -31,6 +31,8 @@ Activate the workers to produce their designated yeild.
 
 ## buildings
 
+Building will create a passive income for you colonie. You will receive a DM from the bot twice a day at 0000 and 1200 (server time).
+
 ### `colonie buildings` 
 
 list colonie building
@@ -63,7 +65,7 @@ display the help message.
 
 # Developer
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![Actions Status](https://github.com/bassochette/colonie/workflows/testing/badge.svg)](https://github.com/bassochette/colonie/actions)
+[![Actions Status](https://github.com/bassochette/colonies/workflows/Testing/badge.svg)](https://github.com/bassochette/colonies/actions)
 
 ## Endpoints
 
@@ -127,5 +129,5 @@ $ npm run test:cov
 
 ## Built with
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript.
-[discord.js](https://discord.js.org/#/) discord API client.
+- [Nest](https://github.com/nestjs/nest) framework TypeScript.
+- [discord.js](https://discord.js.org/#/) discord API client.
