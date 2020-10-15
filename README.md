@@ -47,19 +47,19 @@ build the requested building or display the help on invalid types
 
 ## Other commands
 
-### `!invite`
+### `colonie invite`
 
 display a bot invite link
 
-### `!status`
+### `colonie status`
 
 display the bot status
 
-### `!ping`
+### `colonie ping`
 
 reply pong
 
-### `!help`
+### `colonie help`
 
 display the help message.
 

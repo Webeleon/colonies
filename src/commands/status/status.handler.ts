@@ -3,11 +3,14 @@ import { Message } from 'discord.js';
 
 import { ICommandHandler } from '../ICommandHandler';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const packageJSON = require('../../../package.json');
+
 @Injectable()
 export class StatusHandler implements ICommandHandler {
   name: '!status';
   test(content: string): boolean {
-    return /^!status/i.test(content);
+    return /^colonie status/i.test(content);
   }
 
   async execute(message: Message): Promise<void> {
@@ -15,6 +18,10 @@ export class StatusHandler implements ICommandHandler {
       embed: {
         color: 'GREEN',
         fields: [
+          {
+            name: 'version',
+            value: packageJSON.version,
+          },
           {
             name: 'Statistics',
             value: `

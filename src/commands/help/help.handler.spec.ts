@@ -17,7 +17,7 @@ describe('HelpHandler', () => {
   });
 
   it('should respond on !help', () => {
-    expect(service.test('!help')).toBeTruthy();
-    expect(service.test('!HELP')).toBeTruthy();
+    expect(service.test('colonie help')).toBeTruthy();
+    expect(service.test('colonie HELP')).toBeTruthy();
   });
 });

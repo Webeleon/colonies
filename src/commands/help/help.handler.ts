@@ -6,24 +6,25 @@ import { ICommandHandler } from '../ICommandHandler';
 export class HelpHandler implements ICommandHandler {
   name = 'help';
   test(content: string): boolean {
-    return /^!help/i.test(content);
+    return /^colonie help/i.test(content);
   }
 
   async execute(message: Message): Promise<void> {
     message.reply({
       embed: {
-        description: 'Webeleon bot template help',
+        title: 'Colonie',
+        description: 'A text based management and exploration game.',
         fields: [
           {
-            name: '!help',
+            name: 'colonie help',
             value: 'display this message',
           },
           {
-            name: '!ping',
+            name: 'colonie ping',
             value: 'reply `pong!`',
           },
           {
-            name: '!invite',
+            name: 'colonie invite',
             value: 'Send an invite link for this awesome bot!',
           },
         ],

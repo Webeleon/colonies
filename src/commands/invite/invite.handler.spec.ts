@@ -20,9 +20,9 @@ describe('InviteHandler', () => {
   });
 
   it('should test on !invite', () => {
-    expect(service.test('!invite')).toBeTruthy();
-    expect(service.test('!INVITE')).toBeTruthy();
-    expect(service.test('!Invite ')).toBeTruthy();
-    expect(service.test('!inVite')).toBeTruthy();
+    expect(service.test('colonie invite')).toBeTruthy();
+    expect(service.test('colonie INVITE')).toBeTruthy();
+    expect(service.test('colonie Invite ')).toBeTruthy();
+    expect(service.test('COLONIE inVite')).toBeTruthy();
   });
 });
