@@ -7,7 +7,7 @@ import {
   FARM_TYPE,
   HOME_TYPE,
   LANDFILL_TYPE,
-} from '../../../../buildings/buildings.constants';
+} from '../../../../game/buildings.constants';
 
 @Injectable()
 export class BuildingsHandler implements ICommandHandler {

@@ -11,9 +11,8 @@ import { ResourcesDocument } from '../resources/resources.interface';
 import {
   GATHERER_WORK_FOOD_YIELD,
   SCAVENGER_BUILDING_MATERIAL_YIELD,
-  SCAVENGER_FOOD_COST,
   SCAVENGER_WORK_COST,
-} from '../troops/troops.constants';
+} from '../game/troops.constants';
 
 interface IWorkContext {
   memberDiscordId: string;

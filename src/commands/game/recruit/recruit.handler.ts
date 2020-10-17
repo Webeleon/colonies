@@ -9,7 +9,7 @@ import {
   SCAVENGER_BUILDING_MATERIAL_YIELD,
   SCAVENGER_FOOD_COST,
   SCAVENGER_WORK_COST,
-} from '../../../troops/troops.constants';
+} from '../../../game/troops.constants';
 
 @Injectable()
 export class RecruitHandler implements ICommandHandler {

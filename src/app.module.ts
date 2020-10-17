@@ -14,6 +14,7 @@ import { TroopsModule } from './troops/troops.module';
 import { WorkModule } from './work/work.module';
 import { BuildingsModule } from './buildings/buildings.module';
 import { BuildingsProductionsModule } from './buildings-productions/buildings-productions.module';
+import { GameModule } from './game/game.module';
 
 const config = new ConfigService();
 @Module({
@@ -33,6 +34,7 @@ const config = new ConfigService();
     WorkModule,
     BuildingsModule,
     BuildingsProductionsModule,
+    GameModule,
   ],
   controllers: [AppController],
 })

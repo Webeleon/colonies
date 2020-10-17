@@ -10,7 +10,7 @@ import {
   HOME_DEFAULT,
   LANDFILLS_CONSTRUCTION_COST,
   LANDFILLS_DEFAULT,
-} from './buildings.constants';
+} from '../game/buildings.constants';
 import { ResourcesService } from '../resources/resources.service';
 
 @Injectable()

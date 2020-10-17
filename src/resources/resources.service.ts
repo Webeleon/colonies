@@ -6,7 +6,7 @@ import { ResourcesDocument } from './resources.interface';
 import {
   INITIAL_BUILDING_MATERIAL_SUPPLY,
   INITIAL_FOOD_SUPPLY,
-} from './resources.constants';
+} from '../game/resources.constants';
 
 @Injectable()
 export class ResourcesService {

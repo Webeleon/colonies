@@ -7,7 +7,7 @@ import { DiscordService } from '../discord/discord.service';
 import { MemberService } from '../member/member.service';
 import { IBuilding } from '../buildings/buildings.interfaces';
 import { ResourcesService } from '../resources/resources.service';
-import { FARMS_YIELD } from '../buildings/buildings.constants';
+import { FARMS_YIELD } from '../game/buildings.constants';
 
 const debug = message => Logger.debug(message, 'BuildingProductionService');
 

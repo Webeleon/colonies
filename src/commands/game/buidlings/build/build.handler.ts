@@ -13,7 +13,7 @@ import {
   LANDFILLS_CONSTRUCTION_COST,
   LANDFILLS_YIELD,
   PRODUCTION_INTERVAL_IN_HOURS,
-} from '../../../../buildings/buildings.constants';
+} from '../../../../game/buildings.constants';
 import { BuildingsService } from '../../../../buildings/buildings.service';
 
 @Injectable()
