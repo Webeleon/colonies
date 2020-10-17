@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ResourcesService } from './resources.service';
 import { rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
 import { ResourcesSchema } from './resources.model';
-import { INITIAL_FOOD_SUPPLY } from './resources.constants';
+import { INITIAL_FOOD_SUPPLY } from '../game/resources.constants';
 
 describe('RessourcesService', () => {
   let service: ResourcesService;

@@ -7,7 +7,7 @@ import { ResourcesService } from '../resources/resources.service';
 import {
   GATHERER_CREATION_FOOD_COST,
   SCAVENGER_FOOD_COST,
-} from './troops.constants';
+} from '../game/troops.constants';
 
 @Injectable()
 export class TroopsService {
