@@ -13,6 +13,7 @@ import {
   SCAVENGER_BUILDING_MATERIAL_YIELD,
   SCAVENGER_WORK_COST,
 } from '../game/troops.constants';
+import { GameService } from '../game/game.service';
 
 interface IWorkContext {
   memberDiscordId: string;
@@ -25,9 +26,11 @@ export class WorkService {
   constructor(
     private readonly troopService: TroopsService,
     private readonly resourceService: ResourcesService,
+    private readonly gameService: GameService,
   ) {}
 
   async startColonieWork(memberDiscordId: string): Promise<IWorkReport> {
+    await this.gameService.workLimitGuard(memberDiscordId);
     const context = {
       memberDiscordId,
       troops: await this.troopService.getMemberTroops(memberDiscordId),

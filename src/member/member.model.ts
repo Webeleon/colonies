@@ -2,8 +2,8 @@ import * as mongoose from 'mongoose';
 
 export const memberSchema = new mongoose.Schema(
   {
-    discordUserId: String,
-    username: String,
+    memberDiscordId: String,
+    lastWork: Date,
   },
   {
     timestamps: true,
