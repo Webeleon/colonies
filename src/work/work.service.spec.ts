@@ -6,13 +6,19 @@ import {
 } from '../test-utils/mongo/MongooseTestModule';
 import { TroopsModule } from '../troops/troops.module';
 import { ResourcesModule } from '../resources/resources.module';
+import { GameModule } from '../game/game.module';
 
 describe('WorkService', () => {
   let service: WorkService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), TroopsModule, ResourcesModule],
+      imports: [
+        rootMongooseTestModule(),
+        TroopsModule,
+        ResourcesModule,
+        GameModule,
+      ],
       providers: [WorkService],
     }).compile();
 

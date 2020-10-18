@@ -28,6 +28,7 @@
     "@nestjs/schedule": "^0.3.1",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "moment": "^2.29.1",
     "mongoose": "^5.9.12",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

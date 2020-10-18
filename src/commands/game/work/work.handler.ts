@@ -18,30 +18,39 @@ export class WorkHandler implements ICommandHandler {
   async execute(message: Message): Promise<void> {
     // TODO: rate limit to define
 
-    const report = await this.workService.startColonieWork(message.author.id);
-    const embed = new MessageEmbed().setTitle(
-      `Work report for ${message.author.username}`,
-    );
-    embed.addField(
-      `${report.gatherers.numberOfTroops} gatherers`,
-      `produced ${report.gatherers.foodProduced} food`,
-    );
-    if (report.scavengers.error) {
-      embed.setColor('YELLOW');
-      embed.addField(
-        `scavengers failed to performed their work`,
-        report.scavengers.error.message,
-        true,
+    try {
+      const report = await this.workService.startColonieWork(message.author.id);
+      const embed = new MessageEmbed().setTitle(
+        `Work report for ${message.author.username}`,
       );
-    } else {
-      embed.setColor('BLUE');
       embed.addField(
-        `${report.scavengers.numberOfTroops} scavengers`,
-        `consumed ${report.scavengers.foodConsumed} food to produce ${report.scavengers.buildingMaterialsProduced}`,
-        true,
+        `${report.gatherers.numberOfTroops} gatherers`,
+        `produced ${report.gatherers.foodProduced} food`,
       );
-    }
+      if (report.scavengers.error) {
+        embed.setColor('YELLOW');
+        embed.addField(
+          `scavengers failed to performed their work`,
+          report.scavengers.error.message,
+          true,
+        );
+      } else {
+        embed.setColor('BLUE');
+        embed.addField(
+          `${report.scavengers.numberOfTroops} scavengers`,
+          `consumed ${report.scavengers.foodConsumed} food to produce ${report.scavengers.buildingMaterialsProduced}`,
+          true,
+        );
+      }
 
-    message.channel.send(embed);
+      message.channel.send(embed);
+    } catch (error) {
+      const errorEmbed = new MessageEmbed()
+        .setColor('RED')
+        .setTitle('Failed to work')
+        .setDescription(error.message);
+
+      message.channel.send(errorEmbed);
+    }
   }
 }
