@@ -35,3 +35,4 @@ lerna-debug.log*
 
 # Secrets
 .env
+secrets
