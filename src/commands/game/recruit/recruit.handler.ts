@@ -42,18 +42,18 @@ export class RecruitHandler implements ICommandHandler {
       const embed = new MessageEmbed()
         .setColor('GREEN')
         .setTitle(
-          `${
-            message.author.username
-          } successfully recruited a ${troopType.toLowerCase()}`,
+          `<@!${
+            message.author.id
+          }> successfully recruited a ${troopType.toLowerCase()}`,
         );
       message.channel.send(embed);
     } catch (error) {
       const errorEmbed = new MessageEmbed()
         .setColor('RED')
         .setTitle(
-          `${
-            message.author.username
-          } failed to recruit ${troopType.toLowerCase()}`,
+          `<@!${
+            message.author.id
+          }> failed to recruit ${troopType.toLowerCase()}`,
         )
         .setDescription(error.message);
       message.channel.send(errorEmbed);

@@ -19,7 +19,7 @@ export class TroopsHandler implements ICommandHandler {
     const troops = await this.troopsService.getMemberTroops(message.author.id);
     const embed = new MessageEmbed()
       .setColor('BLUE')
-      .setTitle(`${message.author.username} troops`)
+      .setDescription(`*<@!${message.author.id}> troops*`)
       .addField('Gatherers', troops.gatherers ?? 0)
       .addField('Scavengers', troops.scavengers ?? 0);
 
