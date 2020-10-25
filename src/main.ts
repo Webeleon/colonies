@@ -19,3 +19,7 @@ async function bootstrap() {
   });
 }
 bootstrap();
+
+process.on('uncaughtException', error => {
+  Logger.error(`UNCAUGHT EXCEPTION => ${error.message}`, error.stack);
+});
