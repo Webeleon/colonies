@@ -20,8 +20,8 @@ export class WorkHandler implements ICommandHandler {
 
     try {
       const report = await this.workService.startColonieWork(message.author.id);
-      const embed = new MessageEmbed().setTitle(
-        `Work report for ${message.author.username}`,
+      const embed = new MessageEmbed().setDescription(
+        `*Work report for <@!${message.author.id}>*`,
       );
       embed.addField(
         `${report.gatherers.numberOfTroops} gatherers`,

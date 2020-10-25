@@ -22,7 +22,7 @@ export class ResourcesHandler implements ICommandHandler {
 
     const resourceEmbed = new MessageEmbed()
       .setColor('BLUE')
-      .setTitle(`${message.author.username} resources inventory`)
+      .setDescription(`*<@!${message.author.username}> resources inventory`)
       .addField('Food', resources.food)
       .addField('Building materials', resources.buildingMaterials ?? 0);
 

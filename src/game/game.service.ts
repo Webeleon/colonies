@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as moment from 'moment';
 
 import { MemberService } from '../member/member.service';
@@ -10,7 +10,6 @@ export class GameService {
 
   async workLimitGuard(memberDiscordId: string): Promise<void> {
     const member = await this.memberService.getMember(memberDiscordId);
-    Logger.debug(member);
     if (!member.lastWork) {
       await this.memberService.markWork({ member });
       return;
