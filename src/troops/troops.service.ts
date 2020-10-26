@@ -27,6 +27,11 @@ export class TroopsService {
     return memberTroops;
   }
 
+  async getTroopsCount(memberDiscordId: string): Promise<number> {
+    const { scavengers, gatherers } = await this.getMemberTroops(memberDiscordId);
+    return (gatherers ?? 0) + (scavengers ?? 0);
+  }
+
   async recruitGatherer(memberDiscordId: string): Promise<void> {
     await this.resourcesService.consumeFood(
       memberDiscordId,
