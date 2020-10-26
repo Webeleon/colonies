@@ -8,7 +8,7 @@ const packageJSON = require('../../../package.json');
 
 @Injectable()
 export class StatusHandler implements ICommandHandler {
-  name: '!status';
+  name = 'status';
   test(content: string): boolean {
     return /^colonie status/i.test(content);
   }

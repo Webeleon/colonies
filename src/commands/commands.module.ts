@@ -19,6 +19,7 @@ import { WorkModule } from '../work/work.module';
 import { BuildHandler } from './game/buidlings/build/build.handler';
 import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { BuildingsModule } from '../buildings/buildings.module';
+import { GameModule } from '../game/game.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { BuildingsModule } from '../buildings/buildings.module';
     TroopsModule,
     WorkModule,
     BuildingsModule,
+    GameModule,
   ],
   providers: [
     CommandsService,

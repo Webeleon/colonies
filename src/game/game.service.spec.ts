@@ -5,13 +5,15 @@ import {
   rootMongooseTestModule,
 } from '../test-utils/mongo/MongooseTestModule';
 import { MemberModule } from '../member/member.module';
+import { TroopsModule } from '../troops/troops.module';
+import { BuildingsModule } from '../buildings/buildings.module';
 
 describe('GameService', () => {
   let gameService: GameService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), MemberModule],
+      imports: [rootMongooseTestModule(), MemberModule, TroopsModule, BuildingsModule],
       providers: [GameService],
     }).compile();
 

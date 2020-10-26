@@ -5,13 +5,14 @@ import {
   rootMongooseTestModule,
 } from '../../../test-utils/mongo/MongooseTestModule';
 import { TroopsModule } from '../../../troops/troops.module';
+import { GameModule } from '../../../game/game.module';
 
 describe('RecruitHandler', () => {
   let recruitHandler: RecruitHandler;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), TroopsModule],
+      imports: [rootMongooseTestModule(), TroopsModule, GameModule],
       providers: [RecruitHandler],
     }).compile();
 

@@ -10,10 +10,14 @@ import {
   SCAVENGER_FOOD_COST,
   SCAVENGER_WORK_COST,
 } from '../../../game/troops.constants';
+import { GameService } from '../../../game/game.service';
 
 @Injectable()
 export class RecruitHandler implements ICommandHandler {
-  constructor(private readonly troopsService: TroopsService) {}
+  constructor(
+    private readonly troopsService: TroopsService,
+    private readonly gameService: GameService,
+  ) {}
   name = 'recruit <troop type>';
   descriptions = 'recruit a trop of the specified type';
 
@@ -32,8 +36,10 @@ export class RecruitHandler implements ICommandHandler {
 
     try {
       if (/^gatherer/i.test(troopType)) {
+        await this.gameService.recruitmentGuard(message.author.id);
         await this.troopsService.recruitGatherer(message.author.id);
       } else if (/^scavenger/i.test(troopType)) {
+        await this.gameService.recruitmentGuard(message.author.id);
         await this.troopsService.recruitScavenger(message.author.id);
       } else {
         return this.sendHelp(message);
@@ -41,21 +47,22 @@ export class RecruitHandler implements ICommandHandler {
 
       const embed = new MessageEmbed()
         .setColor('GREEN')
-        .setTitle(
-          `<@!${
+        .setDescription(
+          `**<@!${
             message.author.id
-          }> successfully recruited a ${troopType.toLowerCase()}`,
+          }> successfully recruited a ${troopType.toLowerCase()}**`,
         );
       message.channel.send(embed);
     } catch (error) {
       const errorEmbed = new MessageEmbed()
         .setColor('RED')
-        .setTitle(
-          `<@!${
+        .setDescription(
+          `**<@!${
             message.author.id
-          }> failed to recruit ${troopType.toLowerCase()}`,
+          }> failed to recruit ${troopType.toLowerCase()}**
+${error.message}
+`,
         )
-        .setDescription(error.message);
       message.channel.send(errorEmbed);
     }
   }

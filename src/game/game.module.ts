@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
-import { GameService } from './game.service';
+
 import { MemberModule } from '../member/member.module';
+import { TroopsModule } from '../troops/troops.module';
+import { BuildingsModule } from '../buildings/buildings.module';
+
+import { GameService } from './game.service';
 
 @Module({
-  imports: [MemberModule],
+  imports: [
+    MemberModule, TroopsModule, BuildingsModule
+  ],
   providers: [GameService],
   exports: [GameService],
 })
