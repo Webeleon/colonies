@@ -21,9 +21,17 @@ export class TroopsService {
     if (!memberTroops) {
       return this.TroopsModel.create({
         memberDiscordId,
-        gatherers: 0,
+        gatherers: 1,
+        scavengers: 0,
       });
     }
+
+    if (memberTroops.gatherers === 0) {
+      // always grant a free gatherer
+      memberTroops.gatherers = 1;
+      await memberTroops.save();
+    }
+
     return memberTroops;
   }
 
