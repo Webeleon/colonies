@@ -6,8 +6,8 @@ import { BuildingDocument } from './buildings.interfaces';
 import {
   FARMS_CONSTRUCTION_COST,
   FARMS_DEFAULT,
-  HOME_CONSTRUCTION_COST,
-  HOME_DEFAULT,
+  HOUSE_CONSTRUCTION_COST,
+  HOUSE_DEFAULT,
   LANDFILLS_CONSTRUCTION_COST,
   LANDFILLS_DEFAULT,
 } from '../game/buildings.constants';
@@ -44,7 +44,7 @@ export class BuildingsService {
     if (!memberBuildings) {
       return this.buildingModel.create({
         memberDiscordId,
-        homes: HOME_DEFAULT,
+        houses: HOUSE_DEFAULT,
         farms: FARMS_DEFAULT,
         landfills: LANDFILLS_DEFAULT,
       });
@@ -52,16 +52,15 @@ export class BuildingsService {
     return memberBuildings;
   }
 
-  async buildHome(memberDiscordId: string): Promise<void> {
+  async buildHouse(memberDiscordId: string): Promise<void> {
     await this.resourceService.consumeBuildingMaterials(
       memberDiscordId,
-      HOME_CONSTRUCTION_COST,
+      HOUSE_CONSTRUCTION_COST,
     );
     const memberBuildings = await this.getBuildingsForMember(memberDiscordId);
-    memberBuildings.homes += 1;
+    memberBuildings.houses += 1;
     await memberBuildings.save();
   }
-  // TODO: destroyHome
 
   async buildFarm(memberDiscordId: string): Promise<void> {
     await this.resourceService.consumeBuildingMaterials(
@@ -72,7 +71,6 @@ export class BuildingsService {
     memberBuildings.farms += 1;
     await memberBuildings.save();
   }
-  // TODO: destroyFarm
 
   async buildLandfills(memberDiscordId: string): Promise<void> {
     await this.resourceService.consumeBuildingMaterials(
@@ -83,5 +81,4 @@ export class BuildingsService {
     memberBuildings.landfills += 1;
     await memberBuildings.save();
   }
-  // TODO: destroy landfill
 }

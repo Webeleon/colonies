@@ -6,9 +6,9 @@ import {
   FARM_TYPE,
   FARMS_CONSTRUCTION_COST,
   FARMS_YIELD,
-  HOME_ADDED_TROOPS,
-  HOME_CONSTRUCTION_COST,
-  HOME_TYPE,
+  HOUSE_ADDED_TROOPS,
+  HOUSE_CONSTRUCTION_COST,
+  HOUSE_TYPE,
   LANDFILL_TYPE,
   LANDFILLS_CONSTRUCTION_COST,
   LANDFILLS_YIELD,
@@ -51,8 +51,8 @@ export class BuildHandler implements ICommandHandler {
   ): Promise<MessageEmbed> {
     const embed = new MessageEmbed();
 
-    if (buildingType === HOME_TYPE) {
-      await this.buildingsService.buildHome(message.author.id);
+    if (buildingType === HOUSE_TYPE) {
+      await this.buildingsService.buildHouse(message.author.id);
     } else if (buildingType === FARM_TYPE) {
       await this.buildingsService.buildFarm(message.author.id);
     } else if (buildingType === LANDFILL_TYPE) {
@@ -62,8 +62,8 @@ export class BuildHandler implements ICommandHandler {
       embed.setTitle(`Invalid building types: \`${buildingType}\``);
       embed.addFields([
         {
-          name: `${HOME_TYPE} (${HOME_CONSTRUCTION_COST} :building_materials:)`,
-          value: `Home allow you to have ${HOME_ADDED_TROOPS} troops`,
+          name: `${HOUSE_TYPE} (${HOUSE_CONSTRUCTION_COST} :building_materials:)`,
+          value: `Home allow you to have ${HOUSE_ADDED_TROOPS} troops`,
         },
         {
           name: `${FARM_TYPE} (${FARMS_CONSTRUCTION_COST} :building_materials:)`,

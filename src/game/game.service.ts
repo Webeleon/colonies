@@ -5,7 +5,7 @@ import { MemberService } from '../member/member.service';
 import { BuildingsService } from '../buildings/buildings.service';
 import { TroopsService } from '../troops/troops.service';
 
-import { HOME_ADDED_TROOPS } from './buildings.constants';
+import { HOUSE_ADDED_TROOPS } from './buildings.constants';
 import { WORK_LIMIT_IN_MINUTES } from './limits.constants';
 
 @Injectable()
@@ -38,8 +38,8 @@ export class GameService {
     const buildings = await this.buildingService.getBuildingsForMember(memberDiscordId);
     const troopsCount = await this.troopsService.getTroopsCount(memberDiscordId);
 
-    if (buildings.homes * HOME_ADDED_TROOPS <= troopsCount) {
-      throw new Error(`Your ${buildings.homes} houses allow you to recruit ${buildings.homes * HOME_ADDED_TROOPS}. Build more homes to recruit more troops.`);
+    if (buildings.houses * HOUSE_ADDED_TROOPS <= troopsCount) {
+      throw new Error(`Your ${buildings.houses} houses allow you to recruit ${buildings.houses * HOUSE_ADDED_TROOPS}. Build more houses to recruit more troops.`);
     }
   }
 }

@@ -5,7 +5,7 @@ import { ICommandHandler } from '../../../ICommandHandler';
 import { BuildingsService } from '../../../../buildings/buildings.service';
 import {
   FARM_TYPE,
-  HOME_TYPE,
+  HOUSE_TYPE,
   LANDFILL_TYPE,
 } from '../../../../game/buildings.constants';
 
@@ -28,7 +28,7 @@ export class BuildingsHandler implements ICommandHandler {
     const embed = new MessageEmbed().setColor('BLUE')
       .setDescription(`**<@!${message.author.id}> buildings**
 
-**${HOME_TYPE}** : ${buildings.homes}
+**${HOUSE_TYPE}** : ${buildings.houses}
 **${FARM_TYPE}** : ${buildings.farms}
 **${LANDFILL_TYPE}** : ${buildings.landfills}
       `);

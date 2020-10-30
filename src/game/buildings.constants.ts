@@ -1,8 +1,8 @@
-// HOMES
-export const HOME_TYPE = 'home';
-export const HOME_DEFAULT = 1;
-export const HOME_CONSTRUCTION_COST = 10;
-export const HOME_ADDED_TROOPS = 5;
+// HOUSES
+export const HOUSE_TYPE = 'house';
+export const HOUSE_DEFAULT = 1;
+export const HOUSE_CONSTRUCTION_COST = 10;
+export const HOUSE_ADDED_TROOPS = 5;
 
 // PRODUCTIONS BUILDINGS
 export const PRODUCTION_INTERVAL_IN_HOURS = 24;
