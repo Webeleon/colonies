@@ -18,7 +18,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage --force-exit --detectOpenHandles",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json --force-exit --detectOpenHandles"
+    "test:e2e": "jest --config ./test/jest-e2e.json --force-exit --detectOpenHandles",
+    "migrate:up": "migrate --migrations-dir=\"./src/migrations\" --compiler=\"ts:./src/migration-helpers/ts-compiler.js\" up",
+    "migrate:down": "migrate --migrations-dir=\"./src/migrations\" --compiler=\"ts:./src/migration-helpers/ts-compiler.js\" down"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -28,7 +30,9 @@
     "@nestjs/schedule": "^0.3.1",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
+    "migrate": "^1.7.0",
     "moment": "^2.29.1",
+    "mongodb": "^3.6.2",
     "mongoose": "^5.9.12",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

@@ -21,6 +21,6 @@ describe('BuildHandler', () => {
 
   it('should respond to "colonie build <builing type>" case insensitie', () => {
     expect(buildHandler.test('colonie build farm')).toBeTruthy();
-    expect(buildHandler.test('COLONIE BUILD home')).toBeTruthy();
+    expect(buildHandler.test('COLONIE BUILD house')).toBeTruthy();
   });
 });
