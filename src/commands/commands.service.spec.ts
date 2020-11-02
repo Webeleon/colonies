@@ -21,6 +21,7 @@ import { BuildHandler } from './game/buidlings/build/build.handler';
 import { BuildingsModule } from '../buildings/buildings.module';
 import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { GameModule } from '../game/game.module';
+import { MemberModule } from '../member/member.module';
 
 describe('CommandsService', () => {
   let service: CommandsService;
@@ -35,6 +36,7 @@ describe('CommandsService', () => {
         WorkModule,
         BuildingsModule,
         GameModule,
+        MemberModule,
       ],
       providers: [
         CommandsService,
