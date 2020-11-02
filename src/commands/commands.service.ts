@@ -2,6 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Client, Message, MessageEmbed } from 'discord.js';
 
 import { ICommandHandler } from './ICommandHandler';
+import { MemberService } from '../member/member.service';
+
 import { PingHandler } from './ping/ping.handler';
 import { InviteHandler } from './invite/invite.handler';
 import { HelpHandler } from './help/help.handler';
@@ -18,6 +20,10 @@ export class CommandsService {
   commandHandlers: ICommandHandler[] = [];
 
   constructor(
+    // dependencies
+    private readonly memberService: MemberService,
+
+    // user handlers
     private readonly pingHandler: PingHandler,
     private readonly inviteHandler: InviteHandler,
     private readonly helpHandler: HelpHandler,
@@ -57,6 +63,7 @@ export class CommandsService {
       if (handler.test(content)) {
         try {
           Logger.debug(`executing command [${handler.name}] => ${content}`);
+          await this.memberService.markInteraction(message.author.id);
           await handler.execute(message);
         } catch (error) {
           Logger.error(error.message, error.stack);

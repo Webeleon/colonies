@@ -41,4 +41,10 @@ export class MemberService {
     member.lastWork = new Date();
     await member.save();
   }
+
+  async markInteraction(memberDiscordId: string): Promise<void> {
+    const member = await this.getMember(memberDiscordId);
+    member.lastInteraction = new Date();
+    await member.save();
+  }
 }
