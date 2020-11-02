@@ -20,6 +20,7 @@ import { BuildHandler } from './game/buidlings/build/build.handler';
 import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { BuildingsModule } from '../buildings/buildings.module';
 import { GameModule } from '../game/game.module';
+import { MemberModule } from '../member/member.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { GameModule } from '../game/game.module';
     WorkModule,
     BuildingsModule,
     GameModule,
+    MemberModule,
   ],
   providers: [
     CommandsService,

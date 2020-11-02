@@ -7,6 +7,7 @@ import {
   closeInMongodConnection,
   rootMongooseTestModule,
 } from '../test-utils/mongo/MongooseTestModule';
+import { MemberModule } from '../member/member.module';
 
 describe('BuildingsProductionsService', () => {
   let service: BuildingsProductionsService;
@@ -18,6 +19,7 @@ describe('BuildingsProductionsService', () => {
         BuildingsModule,
         ResourcesModule,
         DiscordModule,
+        MemberModule,
       ],
       providers: [BuildingsProductionsService],
     }).compile();
