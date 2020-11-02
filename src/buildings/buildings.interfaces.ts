@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 
 export interface IBuilding {
   memberDiscordId: string;
-  homes: number;
+  houses: number;
   farms: number;
   landfills: number;
   createdAt: Date;

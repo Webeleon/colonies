@@ -3,7 +3,7 @@ import { Schema } from 'mongoose';
 export const BuildingSchema = new Schema(
   {
     memberDiscordId: String,
-    homes: {
+    houses: {
       type: Number,
       default: 1,
     },
