@@ -28,7 +28,7 @@
     "@nestjs/mongoose": "7.0.2",
     "@nestjs/platform-express": "7.0.8",
     "@nestjs/schedule": "0.4.1",
-    "discord.js": "12.2.0",
+    "discord.js": "12.4.1",
     "dotenv": "8.2.0",
     "migrate": "1.7.0",
     "moment": "2.29.1",
