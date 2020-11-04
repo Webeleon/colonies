@@ -23,6 +23,7 @@ export class MemberService {
     if (!member) {
       return this.memberModel.create({
         memberDiscordId,
+        lastInteraction: new Date(),
       });
     }
     return member;
