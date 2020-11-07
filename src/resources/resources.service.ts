@@ -6,7 +6,9 @@ import { ResourcesDocument } from './resources.interface';
 import {
   INITIAL_BUILDING_MATERIAL_SUPPLY,
   INITIAL_FOOD_SUPPLY,
+  INITIAL_GOLD_SUPPLY,
 } from '../game/resources.constants';
+import { InsufficientBalanceError } from './resources.errors';
 
 @Injectable()
 export class ResourcesService {
@@ -27,6 +29,7 @@ export class ResourcesService {
         memberDiscordId,
         food: INITIAL_FOOD_SUPPLY,
         buildingMaterials: INITIAL_BUILDING_MATERIAL_SUPPLY,
+        gold: INITIAL_GOLD_SUPPLY,
       });
     }
 
@@ -35,45 +38,76 @@ export class ResourcesService {
 
   async addFoodToMemberResources(
     memberDiscordId: string,
-    foodSupplyToAdd: number,
+    amount: number,
   ): Promise<void> {
+    this.positiveAmountGuard(amount);
     const memberResources = await this.getResourcesForMember(memberDiscordId);
-    memberResources.food += foodSupplyToAdd;
+    memberResources.food += amount;
     await memberResources.save();
   }
 
-  async consumeFood(
-    memberDiscordId: string,
-    foodToConsume: number,
-  ): Promise<void> {
+  async consumeFood(memberDiscordId: string, amount: number): Promise<void> {
+    this.positiveAmountGuard(amount);
     const memberResources = await this.getResourcesForMember(memberDiscordId);
-    if (memberResources.food < foodToConsume) {
+    if (memberResources.food < amount) {
       // TODO: create real error and error management system with i18n message and serializable codes
-      throw new Error('insufficient food');
+      throw new InsufficientBalanceError(
+        'insuficient food',
+        amount - memberResources.food,
+      );
     }
 
-    memberResources.food -= foodToConsume;
+    memberResources.food -= amount;
     await memberResources.save();
   }
 
   async addBuildingMaterialsToMemberResources(
     memberDiscordId: string,
-    buildingMaterialsToAdd: number,
+    amount: number,
   ): Promise<void> {
+    this.positiveAmountGuard(amount);
     const memberResources = await this.getResourcesForMember(memberDiscordId);
-    memberResources.buildingMaterials += buildingMaterialsToAdd;
+    memberResources.buildingMaterials += amount;
     await memberResources.save();
   }
 
   async consumeBuildingMaterials(
     memberDiscordId: string,
-    buildingMaterialToConsumme: number,
+    amount: number,
   ): Promise<void> {
+    this.positiveAmountGuard(amount);
     const memberResources = await this.getResourcesForMember(memberDiscordId);
-    if (memberResources.buildingMaterials < buildingMaterialToConsumme) {
-      throw new Error('insufficient building materials');
+    if (memberResources.buildingMaterials < amount) {
+      throw new InsufficientBalanceError(
+        'insuficient building materials',
+        amount - memberResources.buildingMaterials,
+      );
     }
-    memberResources.buildingMaterials -= buildingMaterialToConsumme;
+    memberResources.buildingMaterials -= amount;
     await memberResources.save();
+  }
+
+  async addGold(memberDiscordId: string, amount: number): Promise<void> {
+    this.positiveAmountGuard(amount);
+    const member = await this.getResourcesForMember(memberDiscordId);
+    member.gold += amount;
+    await member.save();
+  }
+
+  async consumeGold(memberDiscordId: string, amount: number): Promise<void> {
+    this.positiveAmountGuard(amount);
+    const member = await this.getResourcesForMember(memberDiscordId);
+    if (member.gold < amount) {
+      throw new InsufficientBalanceError(
+        `not enough gold`,
+        amount - member.gold,
+      );
+    }
+    member.gold -= amount;
+    await member.save();
+  }
+
+  positiveAmountGuard(amount): void {
+    if (amount < 0) throw new Error(`${amount} is not a positive amount!`);
   }
 }

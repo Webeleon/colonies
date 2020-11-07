@@ -24,7 +24,8 @@ export class ResourcesHandler implements ICommandHandler {
       .setColor('BLUE')
       .setDescription(`**<@!${message.author.id}> resources inventory**`)
       .addField('Food', resources.food)
-      .addField('Building materials', resources.buildingMaterials ?? 0);
+      .addField('Building materials', resources.buildingMaterials ?? 0)
+      .addField('Gold', resources.gold);
 
     message.channel.send(resourceEmbed);
   }

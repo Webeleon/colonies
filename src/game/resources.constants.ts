@@ -1,2 +1,3 @@
 export const INITIAL_FOOD_SUPPLY = 10;
 export const INITIAL_BUILDING_MATERIAL_SUPPLY = 0;
+export const INITIAL_GOLD_SUPPLY = 10;
