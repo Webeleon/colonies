@@ -34,9 +34,8 @@ jobs:
             git pull
             npm ci --silent
             npm run build
-            pm2 stop "colonie"
             npm run migrate:up
-            pm2 start npm --name "colonie" -- start
+            pm2 restart colonie
 
     services:
       mongodb:
