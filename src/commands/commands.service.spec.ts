@@ -12,9 +12,9 @@ import {
   closeInMongodConnection,
   rootMongooseTestModule,
 } from '../test-utils/mongo/MongooseTestModule';
-import { RecruitHandler } from './game/recruit/recruit.handler';
+import { RecruitHandler } from './game/troops/recruit/recruit.handler';
 import { TroopsModule } from '../troops/troops.module';
-import { TroopsHandler } from './game/troops/troops.handler';
+import { TroopsReportHandler } from './game/troops/troops-report/troopsReport.handler';
 import { WorkModule } from '../work/work.module';
 import { WorkHandler } from './game/work/work.handler';
 import { BuildHandler } from './game/buidlings/build/build.handler';
@@ -22,6 +22,7 @@ import { BuildingsModule } from '../buildings/buildings.module';
 import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { GameModule } from '../game/game.module';
 import { MemberModule } from '../member/member.module';
+import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
 
 describe('CommandsService', () => {
   let service: CommandsService;
@@ -46,7 +47,8 @@ describe('CommandsService', () => {
         StatusHandler,
         ResourcesHandler,
         RecruitHandler,
-        TroopsHandler,
+        DismissHandler,
+        TroopsReportHandler,
         WorkHandler,
         BuildHandler,
         BuildingsHandler,

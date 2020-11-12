@@ -1,16 +1,16 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Message, MessageEmbed } from 'discord.js';
 
-import { ICommandHandler } from '../../ICommandHandler';
-import { TroopsService } from '../../../troops/troops.service';
+import { ICommandHandler } from '../../../ICommandHandler';
+import { TroopsService } from '../../../../troops/troops.service';
 import {
   GATHERER_CREATION_FOOD_COST,
   GATHERER_WORK_FOOD_YIELD,
   SCAVENGER_BUILDING_MATERIAL_YIELD,
   SCAVENGER_FOOD_COST,
   SCAVENGER_WORK_COST,
-} from '../../../game/troops.constants';
-import { GameService } from '../../../game/game.service';
+} from '../../../../game/troops.constants';
+import { GameService } from '../../../../game/game.service';
 
 @Injectable()
 export class RecruitHandler implements ICommandHandler {
@@ -42,7 +42,7 @@ export class RecruitHandler implements ICommandHandler {
         await this.gameService.recruitmentGuard(message.author.id);
         await this.troopsService.recruitScavenger(message.author.id);
       } else {
-        return this.sendHelp(message);
+        return RecruitHandler.sendHelp(message);
       }
 
       const embed = new MessageEmbed()
@@ -54,20 +54,18 @@ export class RecruitHandler implements ICommandHandler {
         );
       message.channel.send(embed);
     } catch (error) {
-      const errorEmbed = new MessageEmbed()
-        .setColor('RED')
-        .setDescription(
-          `**<@!${
-            message.author.id
-          }> failed to recruit ${troopType.toLowerCase()}**
+      const errorEmbed = new MessageEmbed().setColor('RED').setDescription(
+        `**<@!${
+          message.author.id
+        }> failed to recruit ${troopType.toLowerCase()}**
 ${error.message}
 `,
-        )
+      );
       message.channel.send(errorEmbed);
     }
   }
 
-  sendHelp(message: Message): void {
+  public static sendHelp(message: Message): void {
     const embed = new MessageEmbed()
       .setColor('BLUE')
       .setTitle('recruitment help')

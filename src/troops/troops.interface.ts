@@ -9,3 +9,8 @@ export interface ITroops {
 }
 
 export interface TroopsDocument extends ITroops, Document {}
+
+export enum TROOP_TYPE {
+  SCAVENGER = 'scavenger',
+  GATHERER = 'gatherer',
+}

@@ -23,11 +23,16 @@ export class HelpHandler implements ICommandHandler {
           },
           {
             name: 'colonie troops',
-            value: 'display your colonie troops'
+            value: 'display your colonie troops',
           },
           {
             name: 'colonie recruit <troop type>',
-            value: 'recruit the requested troop. `colonie recruit help` for more',
+            value:
+              'recruit the requested troop. `colonie recruit help` for more',
+          },
+          {
+            name: 'colonie dismiss <troop type> <optional amount>',
+            value: 'dismiss the troops',
           },
           {
             name: 'colonie buildings',

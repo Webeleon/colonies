@@ -3,9 +3,9 @@ import { RecruitHandler } from './recruit.handler';
 import {
   closeInMongodConnection,
   rootMongooseTestModule,
-} from '../../../test-utils/mongo/MongooseTestModule';
-import { TroopsModule } from '../../../troops/troops.module';
-import { GameModule } from '../../../game/game.module';
+} from '../../../../test-utils/mongo/MongooseTestModule';
+import { TroopsModule } from '../../../../troops/troops.module';
+import { GameModule } from '../../../../game/game.module';
 
 describe('RecruitHandler', () => {
   let recruitHandler: RecruitHandler;

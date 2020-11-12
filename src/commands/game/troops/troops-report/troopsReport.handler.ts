@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Message, MessageEmbed } from 'discord.js';
 
-import { ICommandHandler } from '../../ICommandHandler';
-import { TroopsService } from '../../../troops/troops.service';
+import { ICommandHandler } from '../../../ICommandHandler';
+import { TroopsService } from '../../../../troops/troops.service';
 
 @Injectable()
-export class TroopsHandler implements ICommandHandler {
+export class TroopsReportHandler implements ICommandHandler {
   constructor(private readonly troopsService: TroopsService) {}
 
   name = 'troops';

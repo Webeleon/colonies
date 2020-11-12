@@ -5,4 +5,5 @@ export interface ICommandHandler {
   test: (content: string) => boolean;
   name: string;
   description?: string;
+  regex?: RegExp;
 }

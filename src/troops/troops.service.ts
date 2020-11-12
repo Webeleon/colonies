@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { TroopsDocument } from './troops.interface';
+import { TROOP_TYPE, TroopsDocument } from './troops.interface';
 import { ResourcesService } from '../resources/resources.service';
 import {
   GATHERER_CREATION_FOOD_COST,
@@ -36,7 +36,9 @@ export class TroopsService {
   }
 
   async getTroopsCount(memberDiscordId: string): Promise<number> {
-    const { scavengers, gatherers } = await this.getMemberTroops(memberDiscordId);
+    const { scavengers, gatherers } = await this.getMemberTroops(
+      memberDiscordId,
+    );
     return (gatherers ?? 0) + (scavengers ?? 0);
   }
 
@@ -64,5 +66,27 @@ export class TroopsService {
     }
 
     await troops.save();
+  }
+
+  async dismissTroop(
+    memberDiscordId: string,
+    troopType: TROOP_TYPE,
+    amount = 1,
+  ): Promise<void> {
+    const memberTroops = await this.getMemberTroops(memberDiscordId);
+
+    switch (troopType) {
+      case TROOP_TYPE.GATHERER:
+        const newGatherersCount = memberTroops.gatherers - amount;
+        memberTroops.gatherers = newGatherersCount >= 1 ? newGatherersCount : 1;
+        break;
+      case TROOP_TYPE.SCAVENGER:
+        const newScavengerCount = memberTroops.scavengers - amount;
+        memberTroops.scavengers =
+          newScavengerCount >= 0 ? newScavengerCount : 0;
+        break;
+    }
+
+    await memberTroops.save();
   }
 }

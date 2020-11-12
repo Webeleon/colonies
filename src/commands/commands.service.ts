@@ -9,11 +9,12 @@ import { InviteHandler } from './invite/invite.handler';
 import { HelpHandler } from './help/help.handler';
 import { StatusHandler } from './status/status.handler';
 import { ResourcesHandler } from './game/resources/resources.handler';
-import { RecruitHandler } from './game/recruit/recruit.handler';
-import { TroopsHandler } from './game/troops/troops.handler';
+import { RecruitHandler } from './game/troops/recruit/recruit.handler';
+import { TroopsReportHandler } from './game/troops/troops-report/troopsReport.handler';
 import { WorkHandler } from './game/work/work.handler';
 import { BuildHandler } from './game/buidlings/build/build.handler';
 import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
+import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
 
 @Injectable()
 export class CommandsService {
@@ -23,14 +24,17 @@ export class CommandsService {
     // dependencies
     private readonly memberService: MemberService,
 
-    // user handlers
+    // user generic handlers
     private readonly pingHandler: PingHandler,
     private readonly inviteHandler: InviteHandler,
     private readonly helpHandler: HelpHandler,
     private readonly statusHandler: StatusHandler,
+
+    // user game handlers
     private readonly gameResourcesHandler: ResourcesHandler,
     private readonly gameRecruitementHandler: RecruitHandler,
-    private readonly gameTroopsHandler: TroopsHandler,
+    private readonly gameDismissTroopHandler: DismissHandler,
+    private readonly gameTroopsHandler: TroopsReportHandler,
     private readonly gameWorkHandler: WorkHandler,
     private readonly gameBuildingBuildHandler: BuildHandler,
     private readonly gameBuildingsListHandler: BuildingsHandler,
@@ -42,6 +46,7 @@ export class CommandsService {
       statusHandler,
       gameResourcesHandler,
       gameRecruitementHandler,
+      gameDismissTroopHandler,
       gameTroopsHandler,
       gameWorkHandler,
       gameBuildingBuildHandler,
@@ -50,10 +55,13 @@ export class CommandsService {
   }
   register(client: Client) {
     for (const command of this.commandHandlers) {
-      Logger.log(`${command.name} registered`, 'CommandExplorer');
+      Logger.log(
+        `${command.name} registered: ${command.regex ?? command.description}`,
+        'CommandExplorer',
+      );
     }
 
-    client.on('message', async message => await this.messageHandler(message));
+    client.on('message', async (message) => await this.messageHandler(message));
   }
 
   async messageHandler(message: Message) {
@@ -69,7 +77,7 @@ export class CommandsService {
           Logger.error(error.message, error.stack);
           const errorEmbed = new MessageEmbed()
             .setColor('RED')
-            .setTitle(error.message)
+            .setTitle(error.message);
           message.channel.send(errorEmbed);
         }
         return;

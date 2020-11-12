@@ -1,21 +1,21 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TroopsHandler } from './troops.handler';
-import { TroopsModule } from '../../../troops/troops.module';
+import { TroopsReportHandler } from './troopsReport.handler';
+import { TroopsModule } from '../../../../troops/troops.module';
 import {
   closeInMongodConnection,
   rootMongooseTestModule,
-} from '../../../test-utils/mongo/MongooseTestModule';
+} from '../../../../test-utils/mongo/MongooseTestModule';
 
 describe('TroopsHandler', () => {
-  let troopsHandler: TroopsHandler;
+  let troopsHandler: TroopsReportHandler;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [rootMongooseTestModule(), TroopsModule],
-      providers: [TroopsHandler],
+      providers: [TroopsReportHandler],
     }).compile();
 
-    troopsHandler = module.get<TroopsHandler>(TroopsHandler);
+    troopsHandler = module.get<TroopsReportHandler>(TroopsReportHandler);
   });
 
   afterAll(async () => {
