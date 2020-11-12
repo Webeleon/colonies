@@ -10,9 +10,10 @@ export class TroopsReportHandler implements ICommandHandler {
 
   name = 'troops';
   description = 'display troops for the requesting member';
+  regex = new RegExp(`^colo?n?i?e? troops`, 'i');
 
   test(content: string): boolean {
-    return /^colo?n?i?e? troops/i.test(content);
+    return this.regex.test(content);
   }
 
   async execute(message: Message): Promise<void> {
@@ -20,8 +21,9 @@ export class TroopsReportHandler implements ICommandHandler {
     const embed = new MessageEmbed()
       .setColor('BLUE')
       .setDescription(`*<@!${message.author.id}> troops*`)
-      .addField('Gatherers', troops.gatherers ?? 0)
-      .addField('Scavengers', troops.scavengers ?? 0);
+      .addField('Gatherers', troops.gatherers)
+      .addField('Scavengers', troops.scavengers)
+      .addField('Guards', troops.guards);
 
     message.channel.send(embed);
   }

@@ -6,6 +6,7 @@ import { TROOP_TYPE, TroopsDocument } from './troops.interface';
 import { ResourcesService } from '../resources/resources.service';
 import {
   GATHERER_CREATION_FOOD_COST,
+  GUARD_FOOD_COST,
   SCAVENGER_FOOD_COST,
 } from '../game/troops.constants';
 
@@ -23,6 +24,7 @@ export class TroopsService {
         memberDiscordId,
         gatherers: 1,
         scavengers: 0,
+        guards: 0,
       });
     }
 
@@ -53,17 +55,22 @@ export class TroopsService {
     await troops.save();
   }
 
-  async recruitScavenger(memberDiscordId): Promise<void> {
+  async recruitScavenger(memberDiscordId: string): Promise<void> {
     await this.resourcesService.consumeFood(
       memberDiscordId,
       SCAVENGER_FOOD_COST,
     );
     const troops = await this.getMemberTroops(memberDiscordId);
-    if (!troops.scavengers) {
-      troops.scavengers = 1;
-    } else {
-      troops.scavengers += 1;
-    }
+    troops.scavengers += 1;
+
+    await troops.save();
+  }
+
+  async recruitGuard(memberDiscordId: string): Promise<void> {
+    await this.resourcesService.consumeFood(memberDiscordId, GUARD_FOOD_COST);
+
+    const troops = await this.getMemberTroops(memberDiscordId);
+    troops.guards += 1;
 
     await troops.save();
   }
