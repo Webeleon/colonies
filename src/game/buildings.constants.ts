@@ -18,3 +18,9 @@ export const LANDFILL_TYPE = 'landfill';
 export const LANDFILLS_DEFAULT = 0;
 export const LANDFILLS_CONSTRUCTION_COST = 100;
 export const LANDFILLS_YIELD = 5;
+
+// PIT TRAPS
+export const PITTRAP_TYPE = 'pit trap';
+export const PITTRAP_DEFAULT = 0;
+export const PITTRAP_CONSTRUCTION_COST = 50;
+export const PITTRAP_DEF = 1;

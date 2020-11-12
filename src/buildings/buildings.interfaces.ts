@@ -5,6 +5,7 @@ export interface IBuilding {
   houses: number;
   farms: number;
   landfills: number;
+  pitTrap: number;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -15,6 +15,10 @@ export const BuildingSchema = new Schema(
       type: Number,
       default: 0,
     },
+    pitTrap: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

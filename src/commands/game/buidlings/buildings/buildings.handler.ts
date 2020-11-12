@@ -7,6 +7,7 @@ import {
   FARM_TYPE,
   HOUSE_TYPE,
   LANDFILL_TYPE,
+  PITTRAP_TYPE,
 } from '../../../../game/buildings.constants';
 
 @Injectable()
@@ -28,9 +29,15 @@ export class BuildingsHandler implements ICommandHandler {
     const embed = new MessageEmbed().setColor('BLUE')
       .setDescription(`**<@!${message.author.id}> buildings**
 
-**${HOUSE_TYPE}** : ${buildings.houses}
-**${FARM_TYPE}** : ${buildings.farms}
-**${LANDFILL_TYPE}** : ${buildings.landfills}
+**Housing**
+*${HOUSE_TYPE}* : ${buildings.houses}
+
+**Production**
+*${FARM_TYPE}* : ${buildings.farms}
+*${LANDFILL_TYPE}* : ${buildings.landfills}
+
+**War**
+*${PITTRAP_TYPE}* : ${buildings.pitTrap}
       `);
 
     message.channel.send(embed);

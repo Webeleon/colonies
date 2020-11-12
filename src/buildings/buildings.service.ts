@@ -10,6 +10,8 @@ import {
   HOUSE_DEFAULT,
   LANDFILLS_CONSTRUCTION_COST,
   LANDFILLS_DEFAULT,
+  PITTRAP_CONSTRUCTION_COST,
+  PITTRAP_DEFAULT,
 } from '../game/buildings.constants';
 import { ResourcesService } from '../resources/resources.service';
 
@@ -47,6 +49,7 @@ export class BuildingsService {
         houses: HOUSE_DEFAULT,
         farms: FARMS_DEFAULT,
         landfills: LANDFILLS_DEFAULT,
+        pitTrap: PITTRAP_DEFAULT,
       });
     }
     return memberBuildings;
@@ -79,6 +82,16 @@ export class BuildingsService {
     );
     const memberBuildings = await this.getBuildingsForMember(memberDiscordId);
     memberBuildings.landfills += 1;
+    await memberBuildings.save();
+  }
+
+  async buildPitTrap(memberDiscordId: string): Promise<void> {
+    await this.resourceService.consumeBuildingMaterials(
+      memberDiscordId,
+      PITTRAP_CONSTRUCTION_COST,
+    );
+    const memberBuildings = await this.getBuildingsForMember(memberDiscordId);
+    memberBuildings.pitTrap += 1;
     await memberBuildings.save();
   }
 }

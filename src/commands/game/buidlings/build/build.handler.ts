@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Message, MessageEmbed } from 'discord.js';
 
 import { ICommandHandler } from '../../../ICommandHandler';
@@ -12,6 +12,9 @@ import {
   LANDFILL_TYPE,
   LANDFILLS_CONSTRUCTION_COST,
   LANDFILLS_YIELD,
+  PITTRAP_CONSTRUCTION_COST,
+  PITTRAP_DEF,
+  PITTRAP_TYPE,
   PRODUCTION_INTERVAL_IN_HOURS,
 } from '../../../../game/buildings.constants';
 import { BuildingsService } from '../../../../buildings/buildings.service';
@@ -22,14 +25,15 @@ export class BuildHandler implements ICommandHandler {
 
   name = 'colonie build <building type>';
   descriptions = 'build the specific building';
+  regex = new RegExp('colonie build (.+)?', 'i');
 
   test(content: string): boolean {
-    return /^colonie build (\w+)?/i.test(content);
+    return this.regex.test(content);
   }
 
   async execute(message: Message): Promise<void> {
-    const [cmd, buildingType] = message.content.match(/^colonie build( \w+)?/i);
-
+    const [cmd, buildingType = ''] = message.content.match(this.regex);
+    Logger.debug(buildingType);
     try {
       const embed = await this.dispatchBuildByBuildingType(
         buildingType.trim(),
@@ -57,6 +61,8 @@ export class BuildHandler implements ICommandHandler {
       await this.buildingsService.buildFarm(message.author.id);
     } else if (buildingType === LANDFILL_TYPE) {
       await this.buildingsService.buildLandfills(message.author.id);
+    } else if (buildingType === PITTRAP_TYPE) {
+      await this.buildingsService.buildPitTrap(message.author.id);
     } else {
       embed.setColor('BLUE');
       embed.setTitle(`Invalid building types: \`${buildingType}\``);
@@ -72,6 +78,10 @@ export class BuildHandler implements ICommandHandler {
         {
           name: `${LANDFILL_TYPE} (${LANDFILLS_CONSTRUCTION_COST} :construction_materials:)`,
           value: `produce ${LANDFILLS_YIELD} building materials every ${PRODUCTION_INTERVAL_IN_HOURS}h`,
+        },
+        {
+          name: `${PITTRAP_TYPE} (${PITTRAP_CONSTRUCTION_COST} :building_materials:)`,
+          value: `Passive defense: add ${PITTRAP_DEF} defense to the colonie per ${PITTRAP_TYPE}`,
         },
       ]);
       return embed;
