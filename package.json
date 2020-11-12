@@ -19,6 +19,7 @@
     "test:cov": "jest --coverage --force-exit --detectOpenHandles",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json --force-exit --detectOpenHandles",
+    "migrate:create": "migrate create --template-file ./src/migration-helpers/template.ts --migrations-dir=\"./src/migrations\" --compiler=\"ts:./src/migration-helpers/ts-compiler.js\"",
     "migrate:up": "migrate --migrations-dir=\"./src/migrations\" --compiler=\"ts:./src/migration-helpers/ts-compiler.js\" up",
     "migrate:down": "migrate --migrations-dir=\"./src/migrations\" --compiler=\"ts:./src/migration-helpers/ts-compiler.js\" down"
   },
