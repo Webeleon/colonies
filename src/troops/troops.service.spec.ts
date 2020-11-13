@@ -5,6 +5,7 @@ import { TroopsService } from './troops.service';
 import { rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
 import { TroopsSchema } from './troops.model';
 import { ResourcesModule } from '../resources/resources.module';
+import { BuildingsModule } from '../buildings/buildings.module';
 
 describe('TroopsService', () => {
   let service: TroopsService;
@@ -15,6 +16,7 @@ describe('TroopsService', () => {
         rootMongooseTestModule(),
         MongooseModule.forFeature([{ name: 'Troops', schema: TroopsSchema }]),
         ResourcesModule,
+        BuildingsModule,
       ],
       providers: [TroopsService],
     }).compile();
