@@ -4,6 +4,8 @@ import { InjectModel } from '@nestjs/mongoose';
 
 import { BuildingDocument } from './buildings.interfaces';
 import {
+  BARRAKS_CONSTRUCTION_COST,
+  BARRAKS_DEFAULT,
   FARMS_CONSTRUCTION_COST,
   FARMS_DEFAULT,
   HOUSE_CONSTRUCTION_COST,
@@ -50,6 +52,7 @@ export class BuildingsService {
         farms: FARMS_DEFAULT,
         landfills: LANDFILLS_DEFAULT,
         pitTrap: PITTRAP_DEFAULT,
+        barraks: BARRAKS_DEFAULT,
       });
     }
     return memberBuildings;
@@ -92,6 +95,25 @@ export class BuildingsService {
     );
     const memberBuildings = await this.getBuildingsForMember(memberDiscordId);
     memberBuildings.pitTrap += 1;
+    await memberBuildings.save();
+  }
+
+  async buildBarrak(memberDiscordId: string): Promise<void> {
+    const memberBuildings = await this.getBuildingsForMember(memberDiscordId);
+    if (memberBuildings.barraks === 1) {
+      throw new Error('Only one barak can be built!');
+    }
+    await this.resourceService.consumeBuildingMaterials(
+      memberDiscordId,
+      BARRAKS_CONSTRUCTION_COST,
+    );
+    memberBuildings.barraks += 1;
+    await memberBuildings.save();
+  }
+
+  async demolishBarrak(memberDiscordId: string): Promise<void> {
+    const memberBuildings = await this.getBuildingsForMember(memberDiscordId);
+    memberBuildings.barraks = 0;
     await memberBuildings.save();
   }
 }

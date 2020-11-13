@@ -3,6 +3,9 @@ import { Message, MessageEmbed } from 'discord.js';
 
 import { ICommandHandler } from '../../../ICommandHandler';
 import {
+  BARRAKS_CONSTRUCTION_COST,
+  BARRAKS_DAILY_UPKEEP,
+  BARRAKS_TYPE,
   FARM_TYPE,
   FARMS_CONSTRUCTION_COST,
   FARMS_YIELD,
@@ -63,6 +66,8 @@ export class BuildHandler implements ICommandHandler {
       await this.buildingsService.buildLandfills(message.author.id);
     } else if (buildingType === PITTRAP_TYPE) {
       await this.buildingsService.buildPitTrap(message.author.id);
+    } else if (buildingType === BARRAKS_TYPE) {
+      await this.buildingsService.buildBarrak(message.author.id);
     } else {
       embed.setColor('BLUE');
       embed.setTitle(`Invalid building types: \`${buildingType}\``);
@@ -82,6 +87,10 @@ export class BuildHandler implements ICommandHandler {
         {
           name: `${PITTRAP_TYPE} (${PITTRAP_CONSTRUCTION_COST} :building_materials:)`,
           value: `Passive defense: add ${PITTRAP_DEF} defense to the colonie per ${PITTRAP_TYPE}`,
+        },
+        {
+          name: `${BARRAKS_TYPE} (${BARRAKS_CONSTRUCTION_COST} :building_materials:)`,
+          value: `Allow you to recruit infantry. :warning: barraks require a daily upkeep of ${BARRAKS_DAILY_UPKEEP} :building_materials:`,
         },
       ]);
       return embed;

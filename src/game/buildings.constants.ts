@@ -24,3 +24,9 @@ export const PITTRAP_TYPE = 'pit trap';
 export const PITTRAP_DEFAULT = 0;
 export const PITTRAP_CONSTRUCTION_COST = 50;
 export const PITTRAP_DEF = 1;
+
+// BARRAKS
+export const BARRAKS_TYPE = 'barrak';
+export const BARRAKS_DEFAULT = 0;
+export const BARRAKS_CONSTRUCTION_COST = 25;
+export const BARRAKS_DAILY_UPKEEP = 5;

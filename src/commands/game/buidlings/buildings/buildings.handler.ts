@@ -4,6 +4,7 @@ import { Message, MessageEmbed } from 'discord.js';
 import { ICommandHandler } from '../../../ICommandHandler';
 import { BuildingsService } from '../../../../buildings/buildings.service';
 import {
+  BARRAKS_TYPE,
   FARM_TYPE,
   HOUSE_TYPE,
   LANDFILL_TYPE,
@@ -38,6 +39,7 @@ export class BuildingsHandler implements ICommandHandler {
 
 **War**
 *${PITTRAP_TYPE}* : ${buildings.pitTrap}
+*${BARRAKS_TYPE}* : ${buildings.barraks}
       `);
 
     message.channel.send(embed);
