@@ -7,14 +7,17 @@ import { ResourcesService } from '../resources/resources.service';
 import {
   GATHERER_CREATION_FOOD_COST,
   GUARD_FOOD_COST,
+  LIGHT_INFANTRY_FOOD_COST,
   SCAVENGER_FOOD_COST,
 } from '../game/troops.constants';
+import { BuildingsService } from '../buildings/buildings.service';
 
 @Injectable()
 export class TroopsService {
   constructor(
     @InjectModel('Troops') private readonly TroopsModel: Model<TroopsDocument>,
     private readonly resourcesService: ResourcesService,
+    private readonly buildingService: BuildingsService,
   ) {}
 
   async getMemberTroops(memberDiscordId: string): Promise<TroopsDocument> {
@@ -25,6 +28,7 @@ export class TroopsService {
         gatherers: 1,
         scavengers: 0,
         guards: 0,
+        lightInfantry: 0,
       });
     }
 
@@ -75,6 +79,27 @@ export class TroopsService {
     await troops.save();
   }
 
+  async recruitLightInfantry(memberDiscordId: string): Promise<void> {
+    const buildings = await this.buildingService.getBuildingsForMember(
+      memberDiscordId,
+    );
+    if (buildings.barraks !== 1) {
+      throw new Error(
+        `A barrak is required to recruit light infantry. \`colonie build barrak\``,
+      );
+    }
+
+    await this.resourcesService.consumeFood(
+      memberDiscordId,
+      LIGHT_INFANTRY_FOOD_COST,
+    );
+
+    const troops = await this.getMemberTroops(memberDiscordId);
+    troops.lightInfantry += 1;
+
+    await troops.save();
+  }
+
   async dismissTroop(
     memberDiscordId: string,
     troopType: TROOP_TYPE,
@@ -91,6 +116,15 @@ export class TroopsService {
         const newScavengerCount = memberTroops.scavengers - amount;
         memberTroops.scavengers =
           newScavengerCount >= 0 ? newScavengerCount : 0;
+        break;
+      case TROOP_TYPE.GUARD:
+        const newGuardCount = memberTroops.guards - amount;
+        memberTroops.guards = newGuardCount >= 0 ? newGuardCount : 0;
+        break;
+      case TROOP_TYPE.LIGHT_INFANTRY:
+        const newLightInfantryCount = memberTroops.lightInfantry - amount;
+        memberTroops.lightInfantry =
+          newLightInfantryCount >= 0 ? newLightInfantryCount : 0;
         break;
     }
 

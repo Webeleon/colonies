@@ -10,11 +10,17 @@ import {
   GUARD_DAILY_UPKEEP,
   GUARD_DEF,
   GUARD_FOOD_COST,
+  LIGHT_INFANTRY_ATK,
+  LIGHT_INFANTRY_DAILY_FOOD_UPKEEP,
+  LIGHT_INFANTRY_DAILY_GOLD_UPKEEP,
+  LIGHT_INFANTRY_DEF,
+  LIGHT_INFANTRY_FOOD_COST,
   SCAVENGER_BUILDING_MATERIAL_YIELD,
   SCAVENGER_FOOD_COST,
   SCAVENGER_WORK_COST,
 } from '../../../../game/troops.constants';
 import { GameService } from '../../../../game/game.service';
+import { TROOP_TYPE } from '../../../../troops/troops.interface';
 
 @Injectable()
 export class RecruitHandler implements ICommandHandler {
@@ -40,15 +46,20 @@ export class RecruitHandler implements ICommandHandler {
     }
 
     try {
-      if (/^gatherer/i.test(troopType)) {
+      if (new RegExp(`^${TROOP_TYPE.GATHERER}`, 'i').test(troopType)) {
         await this.gameService.recruitmentGuard(message.author.id);
         await this.troopsService.recruitGatherer(message.author.id);
-      } else if (/^scavenger/i.test(troopType)) {
+      } else if (new RegExp(`^${TROOP_TYPE.SCAVENGER}`, 'i').test(troopType)) {
         await this.gameService.recruitmentGuard(message.author.id);
         await this.troopsService.recruitScavenger(message.author.id);
-      } else if (/^guard/i.test(troopType)) {
+      } else if (new RegExp(`^${TROOP_TYPE.GUARD}`, 'i').test(troopType)) {
         await this.gameService.recruitmentGuard(message.author.id);
         await this.troopsService.recruitGuard(message.author.id);
+      } else if (
+        new RegExp(`^${TROOP_TYPE.LIGHT_INFANTRY}`, 'i').test(troopType)
+      ) {
+        await this.gameService.recruitmentGuard(message.author.id);
+        await this.troopsService.recruitLightInfantry(message.author.id);
       } else {
         return RecruitHandler.sendHelp(message);
       }
@@ -80,16 +91,20 @@ ${error.message}
       .setDescription('here are the valid troops type')
       .addFields([
         {
-          name: 'gatherer',
+          name: TROOP_TYPE.GATHERER,
           value: `cost ${GATHERER_CREATION_FOOD_COST} :food:, produce ${GATHERER_WORK_FOOD_YIELD} :food: while working`,
         },
         {
-          name: 'scavenger',
+          name: TROOP_TYPE.SCAVENGER,
           value: `cost ${SCAVENGER_FOOD_COST} :food:, produce ${SCAVENGER_BUILDING_MATERIAL_YIELD} :building_materials: in exchange for ${SCAVENGER_WORK_COST} :food: while working`,
         },
         {
-          name: 'guard',
-          value: `cost ${GUARD_FOOD_COST} :food:, provide ${GUARD_DEF} :DEF: and ${GUARD_ATK} :ATK: per guard. Will consume every day ${GUARD_DAILY_UPKEEP} :food:`,
+          name: TROOP_TYPE.GUARD,
+          value: `cost ${GUARD_FOOD_COST} :food:, provide ${GUARD_ATK} :ATK: and ${GUARD_DEF} :DEF: per guard. :warning: Will consume every day ${GUARD_DAILY_UPKEEP} :food:`,
+        },
+        {
+          name: TROOP_TYPE.LIGHT_INFANTRY,
+          value: `cost ${LIGHT_INFANTRY_FOOD_COST} :food:, provide ${LIGHT_INFANTRY_ATK} :ATK: and ${LIGHT_INFANTRY_DEF} :DEF:. :warning: Will consume every day ${LIGHT_INFANTRY_DAILY_FOOD_UPKEEP} :food: and ${LIGHT_INFANTRY_DAILY_GOLD_UPKEEP} :gold:`,
         },
       ]);
     message.channel.send(embed);

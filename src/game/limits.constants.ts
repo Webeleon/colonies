@@ -1,1 +1,1 @@
-export const WORK_LIMIT_IN_MINUTES = 5;
+export const WORK_LIMIT_IN_MINUTES = 0.5;

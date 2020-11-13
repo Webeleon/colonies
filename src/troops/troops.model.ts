@@ -20,4 +20,9 @@ export const TroopsSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+
+  lightInfantry: {
+    type: Number,
+    default: 0,
+  },
 });

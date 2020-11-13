@@ -23,7 +23,8 @@ export class TroopsReportHandler implements ICommandHandler {
       .setDescription(`*<@!${message.author.id}> troops*`)
       .addField('Gatherers', troops.gatherers)
       .addField('Scavengers', troops.scavengers)
-      .addField('Guards', troops.guards);
+      .addField('Guards', troops.guards)
+      .addField('Light infantry', troops.lightInfantry);
 
     message.channel.send(embed);
   }

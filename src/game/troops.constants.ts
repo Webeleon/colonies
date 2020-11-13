@@ -18,3 +18,10 @@ export const GUARD_FOOD_COST = 10;
 export const GUARD_DAILY_UPKEEP = 1;
 export const GUARD_DEF = 1;
 export const GUARD_ATK = 0;
+
+// Light infantry
+export const LIGHT_INFANTRY_FOOD_COST = 10;
+export const LIGHT_INFANTRY_DAILY_FOOD_UPKEEP = 1;
+export const LIGHT_INFANTRY_DAILY_GOLD_UPKEEP = 1;
+export const LIGHT_INFANTRY_DEF = 1;
+export const LIGHT_INFANTRY_ATK = 1;
