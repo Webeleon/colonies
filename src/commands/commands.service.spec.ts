@@ -23,6 +23,7 @@ import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { GameModule } from '../game/game.module';
 import { MemberModule } from '../member/member.module';
 import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
+import { RaidHandler } from './pvp/raid/raid.handler';
 
 describe('CommandsService', () => {
   let service: CommandsService;
@@ -52,6 +53,7 @@ describe('CommandsService', () => {
         WorkHandler,
         BuildHandler,
         BuildingsHandler,
+        RaidHandler,
       ],
     }).compile();
 

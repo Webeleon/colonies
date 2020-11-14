@@ -22,6 +22,7 @@ import { TroopsModule } from '../troops/troops.module';
 import { BuildHandler } from './game/buidlings/build/build.handler';
 import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
+import { RaidHandler } from './pvp/raid/raid.handler';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
     BuildHandler,
     BuildingsHandler,
     DismissHandler,
+    RaidHandler,
   ],
   exports: [CommandsService],
 })

@@ -15,6 +15,7 @@ import { WorkHandler } from './game/work/work.handler';
 import { BuildHandler } from './game/buidlings/build/build.handler';
 import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
+import { RaidHandler } from './pvp/raid/raid.handler';
 
 @Injectable()
 export class CommandsService {
@@ -38,6 +39,7 @@ export class CommandsService {
     private readonly gameWorkHandler: WorkHandler,
     private readonly gameBuildingBuildHandler: BuildHandler,
     private readonly gameBuildingsListHandler: BuildingsHandler,
+    private readonly pvpRaidHandler: RaidHandler,
   ) {
     this.commandHandlers = [
       pingHandler,
@@ -51,6 +53,7 @@ export class CommandsService {
       gameWorkHandler,
       gameBuildingBuildHandler,
       gameBuildingsListHandler,
+      pvpRaidHandler,
     ];
   }
   register(client: Client) {
