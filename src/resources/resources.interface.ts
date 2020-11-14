@@ -10,3 +10,9 @@ export interface Resources {
 }
 
 export interface ResourcesDocument extends Resources, Document {}
+
+export enum RESOURCES_TYPE {
+  FOOD = 'food',
+  GOLD = 'gold',
+  BUILDING_MATERIALS = 'building materials',
+}

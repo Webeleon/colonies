@@ -1,16 +1,15 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { MessageEmbed } from 'discord.js';
-import * as moment from 'moment';
 
 import { BuildingsService } from '../buildings/buildings.service';
 import { DiscordService } from '../discord/discord.service';
 import { MemberService } from '../member/member.service';
 import { IBuilding } from '../buildings/buildings.interfaces';
 import { ResourcesService } from '../resources/resources.service';
-import { FARMS_YIELD } from '../game/buildings.constants';
+import { FARMS_YIELD, LANDFILLS_YIELD } from '../game/buildings.constants';
 
-const debug = message => Logger.debug(message, 'BuildingProductionService');
+const debug = (message) => Logger.debug(message, 'BuildingProductionService');
 
 @Injectable()
 export class BuildingsProductionsService {
@@ -23,27 +22,35 @@ export class BuildingsProductionsService {
 
   @Cron('0 0,12 * * *')
   async massProduction(): Promise<void> {
-
     debug('Start building production');
     const allMembersProductionBuildingProfile = await this.buildingsService.getAllProductionBuildings();
     debug(`found ${allMembersProductionBuildingProfile.length} to produce`);
     for (const profile of allMembersProductionBuildingProfile) {
-      await this.memberProduction(profile);
+      try {
+        await this.memberProduction(profile);
+      } catch (error) {
+        Logger.error(
+          error.message,
+          error.stack,
+          `${profile.memberDiscordId} production`,
+        );
+      }
     }
   }
 
   async memberProduction(profile: IBuilding): Promise<void> {
-    const member = await this.memberService.getMember(profile.memberDiscordId);
     const discordMember = await this.discordService.client.users.fetch(
       profile.memberDiscordId,
     );
-    if (
-      moment(member.lastInteraction ?? new Date()) < moment().subtract(1, 'days')
-    ) {
-      debug(`${discordMember.username} have not interacted with the colonie in the last 24h`)
+    if (await this.memberService.canNotify(profile.memberDiscordId)) {
+      debug(
+        `${discordMember.username} have not interacted with the colonie in the last 24h`,
+      );
       return;
     } else {
-      debug(`${discordMember.username} have interacted with the colonie in the last 24h, production will start`)
+      debug(
+        `${discordMember.username} have interacted with the colonie in the last 24h, production will start`,
+      );
     }
     const foodProduced = await this.farmProduction(profile);
     const buildingMaterialsProduced = await this.landfillProduction(profile);
@@ -54,7 +61,10 @@ export class BuildingsProductionsService {
       .setColor('BLUE')
       .setTitle('Your buildings produced some nice resources!')
       .addField('Farms', foodProduced)
-      .addField('Landfills', buildingMaterialsProduced);
+      .addField('Landfills', buildingMaterialsProduced)
+      .setFooter(
+        'Colonie production has be done and notify since you played in the last 24h',
+      );
     discordMember.send(embed);
   }
 
@@ -70,7 +80,7 @@ export class BuildingsProductionsService {
 
   async landfillProduction(profile: IBuilding): Promise<number> {
     if (profile.landfills === 0) return 0;
-    const buildingMaterialsProduced = profile.landfills * FARMS_YIELD;
+    const buildingMaterialsProduced = profile.landfills * LANDFILLS_YIELD;
     await this.resourceService.addBuildingMaterialsToMemberResources(
       profile.memberDiscordId,
       buildingMaterialsProduced,
