@@ -107,12 +107,6 @@ export class ResourcesService {
     await member.save();
   }
 
-  // async availablePerventageOfResource(memberDiscordId: string, type: ResourcesDocument, amount: number): number {
-  //   this.positiveAmountGuard(amount);
-  //   const memberResources = await this.getResourcesForMember(memberDiscordId);
-  //   let
-  // }
-
   positiveAmountGuard(amount): void {
     if (amount < 0) throw new Error(`${amount} is not a positive amount!`);
   }
