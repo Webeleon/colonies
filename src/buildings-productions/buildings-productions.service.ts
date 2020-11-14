@@ -7,7 +7,7 @@ import { DiscordService } from '../discord/discord.service';
 import { MemberService } from '../member/member.service';
 import { IBuilding } from '../buildings/buildings.interfaces';
 import { ResourcesService } from '../resources/resources.service';
-import { FARMS_YIELD } from '../game/buildings.constants';
+import { FARMS_YIELD, LANDFILLS_YIELD } from '../game/buildings.constants';
 
 const debug = (message) => Logger.debug(message, 'BuildingProductionService');
 
@@ -26,7 +26,15 @@ export class BuildingsProductionsService {
     const allMembersProductionBuildingProfile = await this.buildingsService.getAllProductionBuildings();
     debug(`found ${allMembersProductionBuildingProfile.length} to produce`);
     for (const profile of allMembersProductionBuildingProfile) {
-      await this.memberProduction(profile);
+      try {
+        await this.memberProduction(profile);
+      } catch (error) {
+        Logger.error(
+          error.message,
+          error.stack,
+          `${profile.memberDiscordId} production`,
+        );
+      }
     }
   }
 
@@ -53,7 +61,10 @@ export class BuildingsProductionsService {
       .setColor('BLUE')
       .setTitle('Your buildings produced some nice resources!')
       .addField('Farms', foodProduced)
-      .addField('Landfills', buildingMaterialsProduced);
+      .addField('Landfills', buildingMaterialsProduced)
+      .setFooter(
+        'Colonie production has be done and notify since you played in the last 24h',
+      );
     discordMember.send(embed);
   }
 
@@ -69,7 +80,7 @@ export class BuildingsProductionsService {
 
   async landfillProduction(profile: IBuilding): Promise<number> {
     if (profile.landfills === 0) return 0;
-    const buildingMaterialsProduced = profile.landfills * FARMS_YIELD;
+    const buildingMaterialsProduced = profile.landfills * LANDFILLS_YIELD;
     await this.resourceService.addBuildingMaterialsToMemberResources(
       profile.memberDiscordId,
       buildingMaterialsProduced,
