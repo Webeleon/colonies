@@ -13,13 +13,13 @@ async function bootstrap() {
   const commandService = app.get(CommandsService);
 
   await app.listen(config.port, async () => {
-    Logger.log(`Colonie node on port ${config.port}`);
+    Logger.log(`Colonie node on port ${config.port}`, 'main');
     const client = await discordService.connect();
     commandService.register(client);
   });
 }
 bootstrap();
 
-process.on('uncaughtException', error => {
+process.on('uncaughtException', (error) => {
   Logger.error(`UNCAUGHT EXCEPTION => ${error.message}`, error.stack);
 });
