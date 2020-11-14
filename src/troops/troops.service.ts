@@ -130,4 +130,17 @@ export class TroopsService {
 
     await memberTroops.save();
   }
+
+  async getAllUpkeepableTroopsProfiles(): Promise<TroopsDocument[]> {
+    return this.TroopsModel.find().or([
+      {
+        guards: {
+          $gt: 0,
+        },
+        lightInfantry: {
+          $gt: 0,
+        },
+      },
+    ]);
+  }
 }

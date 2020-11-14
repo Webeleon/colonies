@@ -40,6 +40,16 @@ export class BuildingsService {
     ]);
   }
 
+  async getAllUpkeepableBuildings(): Promise<BuildingDocument[]> {
+    return this.buildingModel.find().or([
+      {
+        barraks: {
+          $gt: 0,
+        },
+      },
+    ]);
+  }
+
   // GET or create building for member
   async getBuildingsForMember(memberDiscordId): Promise<BuildingDocument> {
     const memberBuildings = await this.buildingModel.findOne({

@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { MessageEmbed } from 'discord.js';
-import * as moment from 'moment';
 
 import { BuildingsService } from '../buildings/buildings.service';
 import { DiscordService } from '../discord/discord.service';
@@ -10,7 +9,7 @@ import { IBuilding } from '../buildings/buildings.interfaces';
 import { ResourcesService } from '../resources/resources.service';
 import { FARMS_YIELD } from '../game/buildings.constants';
 
-const debug = message => Logger.debug(message, 'BuildingProductionService');
+const debug = (message) => Logger.debug(message, 'BuildingProductionService');
 
 @Injectable()
 export class BuildingsProductionsService {
@@ -23,7 +22,6 @@ export class BuildingsProductionsService {
 
   @Cron('0 0,12 * * *')
   async massProduction(): Promise<void> {
-
     debug('Start building production');
     const allMembersProductionBuildingProfile = await this.buildingsService.getAllProductionBuildings();
     debug(`found ${allMembersProductionBuildingProfile.length} to produce`);
@@ -33,17 +31,18 @@ export class BuildingsProductionsService {
   }
 
   async memberProduction(profile: IBuilding): Promise<void> {
-    const member = await this.memberService.getMember(profile.memberDiscordId);
     const discordMember = await this.discordService.client.users.fetch(
       profile.memberDiscordId,
     );
-    if (
-      moment(member.lastInteraction ?? new Date()) < moment().subtract(1, 'days')
-    ) {
-      debug(`${discordMember.username} have not interacted with the colonie in the last 24h`)
+    if (await this.memberService.canNotify(profile.memberDiscordId)) {
+      debug(
+        `${discordMember.username} have not interacted with the colonie in the last 24h`,
+      );
       return;
     } else {
-      debug(`${discordMember.username} have interacted with the colonie in the last 24h, production will start`)
+      debug(
+        `${discordMember.username} have interacted with the colonie in the last 24h, production will start`,
+      );
     }
     const foodProduced = await this.farmProduction(profile);
     const buildingMaterialsProduced = await this.landfillProduction(profile);

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import * as moment from 'moment';
 
 import { IMemberDocument } from './member.interface';
 import { ICommandHandler } from '../commands/ICommandHandler';
@@ -27,6 +28,15 @@ export class MemberService {
       });
     }
     return member;
+  }
+
+  async canNotify(memberDiscorId): Promise<boolean> {
+    const member = await this.getMember(memberDiscorId);
+
+    return (
+      moment(member.lastInteraction ?? new Date()) <
+      moment().subtract(1, 'days')
+    );
   }
 
   async markWork(params: MarkWorkParams): Promise<void> {

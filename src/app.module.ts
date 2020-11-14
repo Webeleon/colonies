@@ -15,6 +15,7 @@ import { WorkModule } from './work/work.module';
 import { BuildingsModule } from './buildings/buildings.module';
 import { BuildingsProductionsModule } from './buildings-productions/buildings-productions.module';
 import { GameModule } from './game/game.module';
+import { UpkeepModule } from './upkeep/upkeep.module';
 
 const config = new ConfigService();
 @Module({
@@ -35,6 +36,7 @@ const config = new ConfigService();
     BuildingsModule,
     BuildingsProductionsModule,
     GameModule,
+    UpkeepModule,
   ],
   controllers: [AppController],
 })
