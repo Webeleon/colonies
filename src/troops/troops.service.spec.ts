@@ -81,7 +81,7 @@ describe('TroopsService', () => {
         memberDiscordId: PLAYER_C,
       });
       expect(playerCProfile.guards).toEqual(1);
-      expect(playerCProfile.lightInfantry).toEqual(0);
+      expect(playerCProfile.lightInfantry).toEqual(1);
     });
   });
 });
