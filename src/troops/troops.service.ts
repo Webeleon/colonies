@@ -137,6 +137,8 @@ export class TroopsService {
         guards: {
           $gt: 0,
         },
+      },
+      {
         lightInfantry: {
           $gt: 0,
         },
