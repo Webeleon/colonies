@@ -7,10 +7,10 @@ import {
 import { PITTRAP_DEF } from '../../game/buildings.constants';
 import { TroopsService } from '../../troops/troops.service';
 import { BuildingsService } from '../../buildings/buildings.service';
-import { RaidCasualties, RaidLoot } from '../pvp.interfaces';
+import { RaidCasualties, RaidLoot, RaidResult } from '../pvp.interfaces';
 import { ResourcesService } from '../../resources/resources.service';
 import { TROOP_TYPE } from '../../troops/troops.interface';
-import { LOOT_PERCENTAGE } from '../../game/pvp.constants';
+import { GOLD_PER_BATTLES, LOOT_PERCENTAGE } from '../../game/pvp.constants';
 
 @Injectable()
 export class PvpComputerService {
@@ -19,6 +19,19 @@ export class PvpComputerService {
     private readonly buildingsService: BuildingsService,
     private readonly resourcesService: ResourcesService,
   ) {}
+
+  async computeGold(result: RaidResult): Promise<number> {
+    const gold = Math.round(
+      GOLD_PER_BATTLES + GOLD_PER_BATTLES * result.defense,
+    );
+
+    await this.resourcesService.addGold(
+      result.success ? result.attacker : result.defender,
+      gold,
+    );
+
+    return gold;
+  }
 
   async computeCasualties(
     memberDiscordId: string,

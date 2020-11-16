@@ -49,7 +49,7 @@ export class RaidHandler implements ICommandHandler {
         `:apple: ${result.stolen.food} :food:`,
         `:bricks: ${result.stolen.buildingMaterials} :building_materials:`,
         ``,
-        `:money_bags: You also won ${result.gold} :gold:`,
+        `:moneybag: You also won ${result.gold} :gold:`,
       );
     } else {
       description.push(

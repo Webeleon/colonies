@@ -29,9 +29,10 @@ export class PvpService {
 
     const result: RaidResult = {
       attacker: attackerDiscordId,
+      attack,
       defender: defenderDiscordId,
+      defense,
       success: attack > defense,
-      gold: GOLD_PER_BATTLES,
     };
 
     if (attack <= defense) {
@@ -47,6 +48,7 @@ export class PvpService {
       );
     }
 
+    result.gold = await this.pvpComputer.computeGold(result);
     await this.pvpNotifier.notifyVictim(result);
 
     return result;
