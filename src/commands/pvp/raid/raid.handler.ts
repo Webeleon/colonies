@@ -23,6 +23,9 @@ export class RaidHandler implements ICommandHandler {
 
   async execute(message: Message): Promise<void> {
     const [cmd, targetId] = message.content.match(this.regex);
+    if (targetId === message.author.id) {
+      throw new Error('You can not raid yourself');
+    }
     const target = this.discord.client.users.resolve(targetId);
 
     if (target.bot) {
