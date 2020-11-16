@@ -42,16 +42,9 @@ export class BuildingsProductionsService {
     const discordMember = await this.discordService.client.users.fetch(
       profile.memberDiscordId,
     );
-    if (await this.memberService.canNotify(profile.memberDiscordId)) {
-      debug(
-        `${discordMember.username} have not interacted with the colonie in the last 24h`,
-      );
-      return;
-    } else {
-      debug(
-        `${discordMember.username} have interacted with the colonie in the last 24h, production will start`,
-      );
-    }
+
+    if (!(await this.memberService.canNotify(profile.memberDiscordId))) return;
+
     const foodProduced = await this.farmProduction(profile);
     const buildingMaterialsProduced = await this.landfillProduction(profile);
 

@@ -21,7 +21,7 @@ export class UpkeepNotifierService {
     profile: TaxableProfile,
     result: UpkeepTaxeCollectionResult,
   ): Promise<void> {
-    if (await this.memberService.canNotify(profile.memberDiscordId)) return;
+    if (!(await this.memberService.canNotify(profile.memberDiscordId))) return;
     const member = await this.discord.client.users.fetch(
       profile.memberDiscordId,
     );
