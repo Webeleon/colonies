@@ -15,7 +15,10 @@ export class DiscordService {
     this.client = new Client();
 
     this.client.on('ready', () => {
-      Logger.log(`Discord connected with handle ${this.client.user.tag}`);
+      Logger.log(
+        `Discord connected with handle ${this.client.user.tag}`,
+        'DiscordService',
+      );
       this.ready = true;
     });
 
