@@ -23,6 +23,7 @@ import { BuildHandler } from './game/buidlings/build/build.handler';
 import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
 import { RaidHandler } from './pvp/raid/raid.handler';
+import { PvpModule } from '../pvp/pvp.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { RaidHandler } from './pvp/raid/raid.handler';
     BuildingsModule,
     GameModule,
     MemberModule,
+    PvpModule,
   ],
   providers: [
     CommandsService,

@@ -1,15 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RaidHandler } from './raid.handler';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../../../test-utils/mongo/MongooseTestModule';
+import { PvpModule } from '../../../pvp/pvp.module';
+import { DiscordModule } from '../../../discord/discord.module';
 
 describe('RaidHandler', () => {
   let service: RaidHandler;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [rootMongooseTestModule(), PvpModule, DiscordModule],
       providers: [RaidHandler],
     }).compile();
 
     service = module.get<RaidHandler>(RaidHandler);
+  });
+
+  afterAll(async () => {
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

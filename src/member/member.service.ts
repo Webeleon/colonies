@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import * as moment from 'moment';
 
 import { IMemberDocument } from './member.interface';
-import { ICommandHandler } from '../commands/ICommandHandler';
 
 interface MarkWorkParams {
   memberDiscordId?: string;
@@ -24,7 +23,6 @@ export class MemberService {
     if (!member) {
       return this.memberModel.create({
         memberDiscordId,
-        lastInteraction: new Date(),
       });
     }
     return member;
@@ -33,9 +31,9 @@ export class MemberService {
   async canNotify(memberDiscorId): Promise<boolean> {
     const member = await this.getMember(memberDiscorId);
 
-    return (
-      moment(member.lastInteraction ?? new Date()) <
-      moment().subtract(1, 'days')
+    return !!(
+      member.lastInteraction &&
+      moment(member.lastInteraction) > moment().subtract(1, 'days')
     );
   }
 
@@ -46,7 +44,7 @@ export class MemberService {
     } else if (params.memberDiscordId) {
       member = await this.getMember(params.memberDiscordId);
     } else {
-      throw new Error('A member is required to nark work');
+      throw new Error('A member is required to ,ark work');
     }
 
     member.lastWork = new Date();
