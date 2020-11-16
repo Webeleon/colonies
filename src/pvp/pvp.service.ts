@@ -16,6 +16,13 @@ export class PvpService {
     defenderDiscordId: string,
   ): Promise<RaidResult> {
     const attack = await this.pvpComputer.computeAttackPower(attackerDiscordId);
+
+    if (attack === 0) {
+      throw new Error(
+        `You do not have any troops to launch an attack:exclamation:`,
+      );
+    }
+
     const defense = await this.pvpComputer.computeDefensePower(
       defenderDiscordId,
     );
