@@ -66,6 +66,7 @@ display the help message.
 # Developer
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![Actions Status](https://github.com/bassochette/colonies/workflows/Testing/badge.svg)](https://github.com/bassochette/colonies/actions)
+[![Coverage Status](https://coveralls.io/repos/github/bassochette/colonies/badge.svg?branch=master)](https://coveralls.io/github/bassochette/colonies?branch=master)
 
 ## Endpoints
 
