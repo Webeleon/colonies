@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common';
 
 import { ConfigService } from '../config/config.service';
 import { Client } from 'discord.js';
-import { CommandsService } from '../commands/commands.service';
 
 @Injectable()
 export class DiscordService {

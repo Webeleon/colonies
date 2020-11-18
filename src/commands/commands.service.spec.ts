@@ -26,6 +26,8 @@ import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
 import { RaidHandler } from './pvp/raid/raid.handler';
 import { PvpModule } from '../pvp/pvp.module';
 import { DiscordModule } from '../discord/discord.module';
+import { VoteHandler } from './vote/vote.handler';
+import { TopggModule } from '../topgg/topgg.module';
 
 describe('CommandsService', () => {
   let service: CommandsService;
@@ -43,6 +45,7 @@ describe('CommandsService', () => {
         MemberModule,
         PvpModule,
         DiscordModule,
+        TopggModule,
       ],
       providers: [
         CommandsService,
@@ -58,6 +61,7 @@ describe('CommandsService', () => {
         BuildHandler,
         BuildingsHandler,
         RaidHandler,
+        VoteHandler,
       ],
     }).compile();
 

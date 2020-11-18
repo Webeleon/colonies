@@ -24,6 +24,8 @@ import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
 import { RaidHandler } from './pvp/raid/raid.handler';
 import { PvpModule } from '../pvp/pvp.module';
+import { VoteHandler } from './vote/vote.handler';
+import { TopggModule } from '../topgg/topgg.module';
 
 @Module({
   imports: [
@@ -36,6 +38,7 @@ import { PvpModule } from '../pvp/pvp.module';
     GameModule,
     MemberModule,
     PvpModule,
+    TopggModule,
   ],
   providers: [
     CommandsService,
@@ -51,6 +54,7 @@ import { PvpModule } from '../pvp/pvp.module';
     BuildingsHandler,
     DismissHandler,
     RaidHandler,
+    VoteHandler,
   ],
   exports: [CommandsService],
 })

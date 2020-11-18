@@ -16,6 +16,7 @@ import { BuildHandler } from './game/buidlings/build/build.handler';
 import { BuildingsHandler } from './game/buidlings/buildings/buildings.handler';
 import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
 import { RaidHandler } from './pvp/raid/raid.handler';
+import { VoteHandler } from './vote/vote.handler';
 
 @Injectable()
 export class CommandsService {
@@ -30,6 +31,7 @@ export class CommandsService {
     private readonly inviteHandler: InviteHandler,
     private readonly helpHandler: HelpHandler,
     private readonly statusHandler: StatusHandler,
+    private readonly voteHandler: VoteHandler,
 
     // user game handlers
     private readonly gameResourcesHandler: ResourcesHandler,
@@ -54,6 +56,7 @@ export class CommandsService {
       gameBuildingBuildHandler,
       gameBuildingsListHandler,
       pvpRaidHandler,
+      voteHandler,
     ];
   }
   register(client: Client) {

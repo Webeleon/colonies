@@ -17,6 +17,7 @@ import { BuildingsProductionsModule } from './buildings-productions/buildings-pr
 import { GameModule } from './game/game.module';
 import { UpkeepModule } from './upkeep/upkeep.module';
 import { PvpModule } from './pvp/pvp.module';
+import { TopggModule } from './topgg/topgg.module';
 
 const config = new ConfigService();
 @Module({
@@ -39,6 +40,7 @@ const config = new ConfigService();
     GameModule,
     UpkeepModule,
     PvpModule,
+    TopggModule,
   ],
   controllers: [AppController],
 })
