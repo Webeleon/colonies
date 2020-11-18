@@ -73,7 +73,7 @@ export class CommandsService {
   async messageHandler(message: Message) {
     if (message.author.bot) return;
     const { content } = message;
-    Logger.debug(message, 'message listener');
+
     for (const handler of this.commandHandlers) {
       if (handler.test(content)) {
         try {
