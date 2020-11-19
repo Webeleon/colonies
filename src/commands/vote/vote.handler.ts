@@ -48,7 +48,6 @@ export class VoteHandler implements ICommandHandler {
  :house_with_garden: ${WEEKEND_VOTE_HOUSE_REWARD} house
     `;
     return `[vote for colonie on top.gg](${this.config.getBotVoteLink()}) and receive:
-    :construction: Work in progress, might fail... :construction:
 ${
   weekend
     ? ':star::star::star: *Resource rewards doubled on weekends!* :star::start::start:'
