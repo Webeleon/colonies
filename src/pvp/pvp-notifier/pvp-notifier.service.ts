@@ -4,6 +4,7 @@ import { MessageEmbed } from 'discord.js';
 import { DiscordService } from '../../discord/discord.service';
 import { MemberService } from '../../member/member.service';
 import { RaidResult } from '../pvp.interfaces';
+import { SHIELD_DURATION_IN_HOURS } from '../../game/pvp.constants';
 
 @Injectable()
 export class PvpNotifierService {
@@ -24,23 +25,30 @@ export class PvpNotifierService {
         `You received this notification because you played in the last 24h`,
       );
 
-    const desccription = [
+    const description = [
       `:crossed_swords: You have been attacked by <@!${result.attacker}> :crossed_swords:\n\n`,
     ];
     if (result.success) {
-      desccription.push(`You lost some resources:`);
+      description.push(`You lost some resources:`);
 
-      desccription.push(`${result.stolen.food} :food:`);
-      desccription.push(
+      description.push(`${result.stolen.food} :food:`);
+      description.push(
         `${result.stolen.buildingMaterials} :building_materials:`,
       );
+      description.push(``);
+      description.push(
+        `:shield: You have been granted a ${SHIELD_DURATION_IN_HOURS} hours shield.`,
+      );
+      description.push(
+        `*If you raid another player you will lose your shield*`,
+      );
     } else {
-      desccription.push(
+      description.push(
         `:tada: You crushed the ennemy and won ${result.gold} :gold:`,
       );
     }
 
-    embed.setDescription(desccription.join('\n'));
+    embed.setDescription(description.join('\n'));
 
     member.send(embed);
   }

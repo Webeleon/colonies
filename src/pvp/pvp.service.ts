@@ -3,12 +3,14 @@ import { RaidResult } from './pvp.interfaces';
 import { PvpComputerService } from './pvp-computer/pvp-computer.service';
 import { PvpNotifierService } from './pvp-notifier/pvp-notifier.service';
 import { GOLD_PER_BATTLES } from '../game/pvp.constants';
+import { PvpShieldService } from './pvp-shield/pvp-shield.service';
 
 @Injectable()
 export class PvpService {
   constructor(
     private readonly pvpComputer: PvpComputerService,
     private readonly pvpNotifier: PvpNotifierService,
+    private readonly pvpShield: PvpShieldService,
   ) {}
 
   async raid(
@@ -22,6 +24,14 @@ export class PvpService {
         `You do not have any troops to launch an attack:exclamation:`,
       );
     }
+    if (await this.pvpShield.isShielded(defenderDiscordId)) {
+      throw new Error(
+        `The victim is shielded and can be attacked ${await this.pvpShield.shieldDurationString(
+          defenderDiscordId,
+        )}`,
+      );
+    }
+    await this.pvpShield.dropShield(attackerDiscordId);
 
     const defense = await this.pvpComputer.computeDefensePower(
       defenderDiscordId,
@@ -46,6 +56,7 @@ export class PvpService {
         attackerDiscordId,
         defenderDiscordId,
       );
+      await this.pvpShield.applyShield(defenderDiscordId);
     }
 
     result.gold = await this.pvpComputer.computeGold(result);

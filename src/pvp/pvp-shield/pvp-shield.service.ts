@@ -25,6 +25,16 @@ export class PvpShieldService {
     );
   }
 
+  async shieldDurationString(memberDiscordId: string): Promise<string> {
+    const shield = await this.PvpShieldModel.findOne({
+      memberDiscordId,
+    });
+
+    return moment(shield.shieldStartingTime)
+      .add(SHIELD_DURATION_IN_HOURS, 'hours')
+      .fromNow();
+  }
+
   async applyShield(memberDiscordId: string): Promise<void> {
     await this.PvpShieldModel.updateOne(
       { memberDiscordId },
