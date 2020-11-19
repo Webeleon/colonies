@@ -12,6 +12,7 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
         uri: mongoUri,
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useCreateIndex: true,
         ...options,
       };
     },

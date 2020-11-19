@@ -25,6 +25,7 @@ const config = new ConfigService();
     MongooseModule.forRoot(config.mongoURL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
     }),
     ConfigModule,
     DiscordModule,
