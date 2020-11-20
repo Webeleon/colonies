@@ -43,14 +43,14 @@ export class VoteHandler implements ICommandHandler {
     const weekendTroopBonus = !weekend
       ? ''
       : `
- :star::start::star: Weekend Bonus :star::star::star:
+ :star::star::star: Weekend Bonus :star::star::star:
  :ninja: ${WEEKEND_VOTE_LIGHT_INFANTRY_REWARD} light infantry
  :house_with_garden: ${WEEKEND_VOTE_HOUSE_REWARD} house
     `;
     return `[vote for colonie on top.gg](${this.config.getBotVoteLink()}) and receive:
 ${
   weekend
-    ? ':star::star::star: *Resource rewards doubled on weekends!* :star::start::start:'
+    ? ':star::star::star: *Resource rewards doubled on weekends!* :star::star::star:'
     : ''
 }
 :apple: ${weekend ? VOTE_FOOD_REWARD * 2 : VOTE_FOOD_REWARD} food :apple:
