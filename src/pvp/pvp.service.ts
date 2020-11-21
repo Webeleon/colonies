@@ -24,6 +24,7 @@ export class PvpService {
         `You do not have any troops to launch an attack:exclamation:`,
       );
     }
+
     if (await this.pvpShield.isShielded(defenderDiscordId)) {
       throw new Error(
         `The victim is shielded and can be attacked ${await this.pvpShield.shieldDurationString(
@@ -45,13 +46,13 @@ export class PvpService {
       success: attack > defense,
     };
 
-    if (attack <= defense) {
-      result.casualties = await this.pvpComputer.computeCasualties(
-        attackerDiscordId,
-        attack,
-        defense,
-      );
-    } else {
+    result.casualties = await this.pvpComputer.computeCasualties(
+      attackerDiscordId,
+      attack,
+      defense,
+    );
+
+    if (attack >= defense) {
       result.stolen = await this.pvpComputer.computeLoot(
         attackerDiscordId,
         defenderDiscordId,

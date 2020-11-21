@@ -9,6 +9,8 @@ import { ResourcesModule } from '../../resources/resources.module';
 import { ResourcesService } from '../../resources/resources.service';
 import { RaidResult } from '../pvp.interfaces';
 import { GOLD_PER_BATTLES } from '../../game/pvp.constants';
+import { TroopsService } from '../../troops/troops.service';
+import { TROOP_TYPE, TroopsDocument } from '../../troops/troops.interface';
 
 describe('PvpComputerService', () => {
   let pvpComputerService: PvpComputerService;
@@ -33,15 +35,11 @@ describe('PvpComputerService', () => {
   });
 
   describe('compute and remove gold', () => {
-    const sandbox = sinon.createSandbox();
     let resourceService: ResourcesService;
 
     beforeEach(async () => {
       resourceService = testModule.get<ResourcesService>(ResourcesService);
       sinon.stub(resourceService, 'addGold');
-    });
-    afterEach(async () => {
-      sandbox.reset();
     });
 
     it('attacker succeed against defenseless player', async () => {
@@ -106,6 +104,58 @@ describe('PvpComputerService', () => {
       expect(
         (resourceService.addGold as sinon.SinonStub).getCall(0).args[1],
       ).toEqual(gold);
+    });
+  });
+
+  describe('compute and remove casaualties', () => {
+    let troopsService: TroopsService;
+    const ATTACKER_ID = 'attacker';
+    const sandbox = sinon.createSandbox();
+
+    beforeEach(() => {
+      troopsService = testModule.get<TroopsService>(TroopsService);
+    });
+    afterEach(() => {
+      sandbox.restore();
+    });
+
+    it('[attacker win] kill one unit of the attacker per defense point', async () => {
+      const dismissStub = sandbox.stub(troopsService, 'dismissTroop');
+      sandbox.stub(troopsService, 'getMemberTroops').returns({
+        lightInfantry: 15,
+      } as any);
+
+      const casualties = await pvpComputerService.computeCasualties(
+        ATTACKER_ID,
+        15,
+        5,
+      );
+
+      expect(casualties.lightInfantry).toEqual(5);
+      expect(dismissStub.getCall(0).args[2]).toEqual(5);
+    });
+
+    it('[defender win] kill all the troops', async () => {
+      const dismissStub = sandbox.stub(troopsService, 'dismissTroop');
+      sandbox.stub(troopsService, 'getMemberTroops').returns(
+        Promise.resolve({
+          memberDiscordId: ATTACKER_ID,
+          lightInfantry: 10,
+        } as any),
+      );
+
+      const casualties = await pvpComputerService.computeCasualties(
+        ATTACKER_ID,
+        10,
+        15,
+      );
+
+      expect(casualties.lightInfantry).toEqual(10);
+
+      // order sent to the troop service
+      expect(dismissStub.getCall(0).args[0]).toEqual(ATTACKER_ID);
+      expect(dismissStub.getCall(0).args[1]).toEqual(TROOP_TYPE.LIGHT_INFANTRY);
+      expect(dismissStub.getCall(0).args[2]).toEqual(10);
     });
   });
 });

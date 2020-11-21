@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import {
   GUARD_DEF,
   LIGHT_INFANTRY_ATK,
@@ -34,18 +34,23 @@ export class PvpComputerService {
   }
 
   async computeCasualties(
-    memberDiscordId: string,
+    attackerDiscordId: string,
     attack: number,
     defense: number,
   ): Promise<RaidCasualties> {
-    const troops = await this.troopsService.getMemberTroops(memberDiscordId);
+    const troops = await this.troopsService.getMemberTroops(attackerDiscordId);
+    const atkToDef = attack - defense;
+
+    const toDismiss =
+      atkToDef <= 0 ? troops.lightInfantry : troops.lightInfantry - atkToDef;
+
     await this.troopsService.dismissTroop(
-      memberDiscordId,
+      attackerDiscordId,
       TROOP_TYPE.LIGHT_INFANTRY,
-      troops.lightInfantry,
+      toDismiss,
     );
     return {
-      lightInfantry: troops.lightInfantry,
+      lightInfantry: toDismiss,
     };
   }
 

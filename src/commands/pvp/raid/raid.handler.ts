@@ -49,8 +49,15 @@ export class RaidHandler implements ICommandHandler {
         `:apple: ${result.stolen.food} :food:`,
         `:bricks: ${result.stolen.buildingMaterials} :building_materials:`,
         ``,
-        `:moneybag: You also won ${result.gold} :gold:`,
       );
+      if (result.casualties.lightInfantry > 0) {
+        description.push(
+          `:skull: You've lost troops against the ennemy defense :shield:`,
+          `:ninja: ${result.casualties.lightInfantry} light infantries`,
+          ``,
+        );
+      }
+      description.push(`:moneybag: You also won ${result.gold} :gold:`);
     } else {
       description.push(
         `**You lost troops**`,
