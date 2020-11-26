@@ -3,12 +3,12 @@ import { VoteHandler } from './vote.handler';
 import { MessageEmbed } from 'discord.js';
 import * as sinon from 'sinon';
 
-import { ConfigModule } from '../../config/config.module';
-import { TopggModule } from '../../topgg/topgg.module';
+import { ConfigModule } from '../../../config/config.module';
+import { TopggModule } from '../../../topgg/topgg.module';
 import {
   closeInMongodConnection,
   rootMongooseTestModule,
-} from '../../test-utils/mongo/MongooseTestModule';
+} from '../../../test-utils/mongo/MongooseTestModule';
 
 describe('VoteHandler', () => {
   let voteHandler: VoteHandler;

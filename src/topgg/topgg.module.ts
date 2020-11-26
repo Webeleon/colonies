@@ -28,6 +28,6 @@ import {
     BuildingsModule,
   ],
   providers: [TopggService, TopggVoteRewardService, VoteReminderService],
-  exports: [TopggService],
+  exports: [TopggService, VoteReminderService],
 })
 export class TopggModule {}
