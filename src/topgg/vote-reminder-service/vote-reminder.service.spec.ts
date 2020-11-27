@@ -18,7 +18,6 @@ import {
 describe('VoteReminderService', () => {
   let voteReminderService: VoteReminderService;
   let VoteReminderModel: Model<VoteReminderDocument>;
-  const sandbox = sinon.createSandbox();
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -39,10 +38,6 @@ describe('VoteReminderService', () => {
 
   afterAll(async () => {
     await closeInMongodConnection();
-  });
-
-  beforeEach(() => {
-    sandbox.restore();
   });
 
   it('should be defined', () => {
