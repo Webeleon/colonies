@@ -21,7 +21,7 @@ export class VoteHandler implements ICommandHandler {
 
   name = 'colonie vote';
   description = 'send a link to vote on top.gg';
-  regex = new RegExp('^colonie vote', 'i');
+  regex = new RegExp('^colonie vote$', 'i');
 
   test(content: string): boolean {
     return this.regex.test(content);

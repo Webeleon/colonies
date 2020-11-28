@@ -14,6 +14,7 @@ import {
   VOTE_REMINDER_MODEL_NAME,
   VoteReminderSchema,
 } from './vote-reminder-service/vote-reminder.model';
+import { TopggScheduledService } from './topgg-scheduled/topgg-scheduled.service';
 
 @Module({
   imports: [
@@ -27,7 +28,12 @@ import {
     ResourcesModule,
     BuildingsModule,
   ],
-  providers: [TopggService, TopggVoteRewardService, VoteReminderService],
+  providers: [
+    TopggService,
+    TopggVoteRewardService,
+    VoteReminderService,
+    TopggScheduledService,
+  ],
   exports: [TopggService, VoteReminderService],
 })
 export class TopggModule {}

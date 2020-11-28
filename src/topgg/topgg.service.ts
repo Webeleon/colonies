@@ -3,6 +3,7 @@ import * as TopGG from 'dblapi.js';
 
 import { ConfigService } from '../config/config.service';
 import { TopggVoteRewardService } from './topgg-vote-reward/topgg-vote-reward.service';
+import { VoteReminderService } from './vote-reminder-service/vote-reminder.service';
 
 @Injectable()
 export class TopggService {
@@ -12,6 +13,7 @@ export class TopggService {
   constructor(
     private readonly config: ConfigService,
     private readonly voteReward: TopggVoteRewardService,
+    private readonly voteReminderService: VoteReminderService,
   ) {}
 
   register(botId: string) {
@@ -32,6 +34,7 @@ export class TopggService {
       Logger.log(`User with Id ${vote.user} as voted!`, 'top.gg');
       if (vote.bot === botId) {
         Logger.log(`And for our bot!`, 'top.gg');
+        await this.voteReminderService.markVote(vote.user);
         await this.voteReward.reward(vote);
       }
     });
