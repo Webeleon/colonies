@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { Message, MessageEmbed } from 'discord.js';
 
-import { ICommandHandler } from '../ICommandHandler';
-import { ConfigService } from '../../config/config.service';
-import { TopggService } from '../../topgg/topgg.service';
+import { ICommandHandler } from '../../ICommandHandler';
+import { ConfigService } from '../../../config/config.service';
+import { TopggService } from '../../../topgg/topgg.service';
 import {
   VOTE_BUILDING_MATERIALS_REWARD,
   VOTE_FOOD_REWARD,
   VOTE_GOLD_REWARD,
   WEEKEND_VOTE_HOUSE_REWARD,
   WEEKEND_VOTE_LIGHT_INFANTRY_REWARD,
-} from '../../game/vote.constants';
+} from '../../../game/vote.constants';
 
 @Injectable()
 export class VoteHandler implements ICommandHandler {
@@ -21,7 +21,7 @@ export class VoteHandler implements ICommandHandler {
 
   name = 'colonie vote';
   description = 'send a link to vote on top.gg';
-  regex = new RegExp('^colonie vote', 'i');
+  regex = new RegExp('^colonie vote$', 'i');
 
   test(content: string): boolean {
     return this.regex.test(content);

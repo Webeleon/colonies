@@ -15,14 +15,7 @@ import {
   WEEKEND_VOTE_HOUSE_REWARD,
   WEEKEND_VOTE_LIGHT_INFANTRY_REWARD,
 } from '../../game/vote.constants';
-
-interface VoteRewards {
-  food: number;
-  buildingMaterials: number;
-  gold: number;
-  house?: number;
-  lightInfantry?: number;
-}
+import { VoteRewards } from './topgg-vote-reward.interface';
 
 @Injectable()
 export class TopggVoteRewardService {
@@ -34,20 +27,26 @@ export class TopggVoteRewardService {
     private readonly troopsService: TroopsService,
   ) {}
 
-  async reward(voteEvent: VoteEventArgs): Promise<void> {
-    Logger.log(voteEvent, 'top.gg reward service');
+  static computeReward(isWeekend: boolean): VoteRewards {
     const reward = (value: number) =>
-      voteEvent.isWeekend ? value * VOTE_WEEKEND_MULTIPLIER : value;
+      isWeekend ? value * VOTE_WEEKEND_MULTIPLIER : value;
     const rewards: VoteRewards = {
       food: reward(VOTE_FOOD_REWARD),
       buildingMaterials: reward(VOTE_BUILDING_MATERIALS_REWARD),
       gold: reward(VOTE_GOLD_REWARD),
     };
 
-    if (voteEvent.isWeekend) {
+    if (isWeekend) {
       rewards.house = WEEKEND_VOTE_HOUSE_REWARD;
       rewards.lightInfantry = WEEKEND_VOTE_LIGHT_INFANTRY_REWARD;
     }
+    return rewards;
+  }
+
+  async reward(voteEvent: VoteEventArgs): Promise<void> {
+    Logger.log(voteEvent, 'top.gg reward service');
+
+    const rewards = TopggVoteRewardService.computeReward(voteEvent.isWeekend);
 
     await this.ressourcesService.addFoodToMemberResources(
       voteEvent.user,
