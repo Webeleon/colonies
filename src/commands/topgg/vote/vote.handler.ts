@@ -62,6 +62,7 @@ ${
 :moneybag: ${weekend ? VOTE_GOLD_REWARD * 2 : VOTE_GOLD_REWARD} gold :moneybag:
 ${weekendTroopBonus}
 [${this.config.getBotVoteLink()}](${this.config.getBotVoteLink()})
+**get reminded to vote**: *colonie vote reminder on*
     `;
   }
 }

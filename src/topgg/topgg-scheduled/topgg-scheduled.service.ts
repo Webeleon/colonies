@@ -61,7 +61,8 @@ You can vote on top.gg to receive this reward:
 ${weekendBonus}
         `,
       )
-      .setURL(this.configs.getBotVoteLink());
+      .setURL(this.configs.getBotVoteLink())
+      .setFooter(`stop receiving vote reminders: colonie vote reminder off`);
 
     await member.send(embed);
   }
