@@ -18,6 +18,7 @@ import { GameModule } from './game/game.module';
 import { UpkeepModule } from './upkeep/upkeep.module';
 import { PvpModule } from './pvp/pvp.module';
 import { TopggModule } from './topgg/topgg.module';
+import { LeaderboardModule } from './leaderboard/leaderboard.module';
 
 const config = new ConfigService();
 @Module({
@@ -42,6 +43,7 @@ const config = new ConfigService();
     UpkeepModule,
     PvpModule,
     TopggModule,
+    LeaderboardModule,
   ],
   controllers: [AppController],
 })
