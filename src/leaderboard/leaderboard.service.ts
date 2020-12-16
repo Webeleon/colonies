@@ -7,6 +7,16 @@ import {
   LEADERBOARD_MODEL_NAME,
 } from './leaderboard.model';
 
+export enum leaderboardTopics {
+  PVP = 'pvp',
+  BUILDINGS = 'buildings',
+  TROOPS = 'troops',
+  RESOURCES = 'resources',
+  TOTAL = 'total',
+}
+
+const COUNT = 10;
+
 @Injectable()
 export class LeaderboardService {
   constructor(
@@ -24,11 +34,34 @@ export class LeaderboardService {
     return leaderboard;
   }
 
-  async globalTop(count = 10): Promise<LeaderBoard[]> {
-    throw new Error('NOT IMPLEMENTED');
+  async globalTop(topic: leaderboardTopics): Promise<LeaderBoard[]> {
+    return this.leaderboardModel
+      .find({})
+      .sort({ [this.topicToDbField(topic)]: -1 })
+      .limit(COUNT);
   }
 
-  async serverTop(count = 10): Promise<LeaderBoard> {
-    throw new Error('NOT IMPLEMENTED');
+  async serverTop(
+    serverId: string,
+    topic: leaderboardTopics,
+  ): Promise<LeaderBoard[]> {
+    return this.leaderboardModel
+      .find({
+        servers: {
+          $in: [serverId],
+        },
+      })
+      .sort({ [this.topicToDbField(topic)]: -1 })
+      .limit(COUNT);
+  }
+
+  topicToDbField(topic: leaderboardTopics): string {
+    return {
+      [leaderboardTopics.PVP]: 'pvpScore',
+      [leaderboardTopics.BUILDINGS]: 'buildingScore',
+      [leaderboardTopics.TROOPS]: 'troopsScore',
+      [leaderboardTopics.RESOURCES]: 'ressourcesScore',
+      [leaderboardTopics.TOTAL]: 'score',
+    }[topic];
   }
 }
