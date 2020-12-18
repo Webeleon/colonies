@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, QueryCursor } from 'mongoose';
 import * as moment from 'moment';
 
 import { MemberService } from './member.service';
@@ -14,7 +14,6 @@ describe('MemberService', () => {
   let module: TestingModule;
 
   beforeEach(async () => {
-    const config = new ConfigService();
     module = await Test.createTestingModule({
       imports: [
         rootMongooseTestModule(),
@@ -28,6 +27,11 @@ describe('MemberService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('can provide a members cursor', async () => {
+    const cursor = await service.getMembersCursor();
+    expect(cursor).toBeDefined();
   });
 
   describe('can notify', () => {

@@ -4,6 +4,8 @@ import { Message, MessageEmbed } from 'discord.js';
 import { ICommandHandler } from '../ICommandHandler';
 import { WORK_LIMIT_IN_MINUTES } from '../../game/limits.constants';
 import { GENERAL_HELP_DESCRIPTION } from './help.constants';
+import { leaderboardScopes } from '../leaderboard/leaderboard.handler';
+import { leaderboardTopics } from '../../leaderboard/leaderboard.service';
 
 @Injectable()
 export class HelpHandler implements ICommandHandler {
@@ -57,6 +59,16 @@ export class HelpHandler implements ICommandHandler {
         {
           name: 'colonie work',
           value: `Send workers to the job. Can be used every ${WORK_LIMIT_IN_MINUTES} minutes.`,
+        },
+        {
+          name: 'colonie leaderboard <scope(optional)> <topic(optional)>',
+          value: `Display the top 10 players. available scopes: ${Object.values(
+            leaderboardScopes,
+          )
+            .map((x) => '`' + x + '`')
+            .join(',')}. available topics: ${Object.values(leaderboardTopics)
+            .map((x) => '`' + x + '`')
+            .join(',')}`,
         },
         {
           name: 'colonie help <topic(optional)>',

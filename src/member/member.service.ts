@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, QueryCursor } from 'mongoose';
 import * as moment from 'moment';
 
 import { IMemberDocument } from './member.interface';
@@ -26,6 +26,10 @@ export class MemberService {
       });
     }
     return member;
+  }
+
+  async getMembersCursor(): Promise<QueryCursor<IMemberDocument>> {
+    return this.memberModel.find({}).cursor();
   }
 
   async canNotify(memberDiscorId): Promise<boolean> {

@@ -29,6 +29,8 @@ import { DiscordModule } from '../discord/discord.module';
 import { VoteHandler } from './topgg/vote/vote.handler';
 import { TopggModule } from '../topgg/topgg.module';
 import { VoteReminderToggleHandler } from './topgg/vote-reminder-toggle/vote-reminder-toggle.handler';
+import { LeaderboardHandler } from './leaderboard/leaderboard.handler';
+import { LeaderboardModule } from '../leaderboard/leaderboard.module';
 
 describe('CommandsService', () => {
   let service: CommandsService;
@@ -47,6 +49,7 @@ describe('CommandsService', () => {
         PvpModule,
         DiscordModule,
         TopggModule,
+        LeaderboardModule,
       ],
       providers: [
         CommandsService,
@@ -64,6 +67,7 @@ describe('CommandsService', () => {
         RaidHandler,
         VoteHandler,
         VoteReminderToggleHandler,
+        LeaderboardHandler,
       ],
     }).compile();
 
