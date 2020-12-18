@@ -4,14 +4,14 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 const mongods = new Map<string, MongoMemoryServer>();
 
 export const rootMongooseTestModule = (
-  key: string,
+  key?: string,
   options: MongooseModuleOptions = {},
 ) =>
   MongooseModule.forRootAsync({
     useFactory: async () => {
       const mongod = new MongoMemoryServer();
       const mongoUri = await mongod.getUri();
-      mongods.set(key, mongod);
+      mongods.set(key || new Date().toString(), mongod);
       return {
         uri: mongoUri,
         useNewUrlParser: true,
@@ -22,6 +22,6 @@ export const rootMongooseTestModule = (
     },
   });
 
-export const closeInMongodConnection = async (key: string) => {
+export const closeInMongodConnection = async (key?: string) => {
   if (mongods.get(key)) await mongods.get(key).stop();
 };
