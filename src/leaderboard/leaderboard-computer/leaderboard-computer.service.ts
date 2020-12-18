@@ -84,11 +84,17 @@ export class LeaderboardComputerService {
       leaderboard.pvpScore;
 
     // discord infos
-    const discord = this.discordService.client;
-    const discordMember = await discord.users.fetch(member.memberDiscordId);
-    leaderboard.username = discordMember.username;
-    leaderboard.userAvatarUrl = discordMember.avatarURL();
-    leaderboard.servers = await this.getMemberServers(member.memberDiscordId);
+    try {
+      const discord = this.discordService.client;
+      const discordMember = await discord.users.cache.get(
+        member.memberDiscordId,
+      );
+      leaderboard.username = discordMember.username;
+      leaderboard.userAvatarUrl = discordMember.avatarURL();
+      leaderboard.servers = await this.getMemberServers(member.memberDiscordId);
+    } catch (error) {
+      Logger.error(error.message, error.stack);
+    }
 
     await leaderboard.save();
   }
