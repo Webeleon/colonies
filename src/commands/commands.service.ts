@@ -18,6 +18,7 @@ import { DismissHandler } from './game/troops/dismiss/dismiss.handler';
 import { RaidHandler } from './pvp/raid/raid.handler';
 import { VoteHandler } from './topgg/vote/vote.handler';
 import { VoteReminderToggleHandler } from './topgg/vote-reminder-toggle/vote-reminder-toggle.handler';
+import { LeaderboardHandler } from './leaderboard/leaderboard.handler';
 
 @Injectable()
 export class CommandsService {
@@ -44,6 +45,7 @@ export class CommandsService {
     private readonly gameBuildingBuildHandler: BuildHandler,
     private readonly gameBuildingsListHandler: BuildingsHandler,
     private readonly pvpRaidHandler: RaidHandler,
+    private readonly leaderboardHandler: LeaderboardHandler,
   ) {
     this.commandHandlers = [
       pingHandler,
@@ -60,6 +62,7 @@ export class CommandsService {
       pvpRaidHandler,
       voteHandler,
       voteReminderHandler,
+      leaderboardHandler,
     ];
   }
   register(client: Client) {

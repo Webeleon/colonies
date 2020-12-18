@@ -27,6 +27,8 @@ import { PvpModule } from '../pvp/pvp.module';
 import { VoteHandler } from './topgg/vote/vote.handler';
 import { TopggModule } from '../topgg/topgg.module';
 import { VoteReminderToggleHandler } from './topgg/vote-reminder-toggle/vote-reminder-toggle.handler';
+import { LeaderboardHandler } from './leaderboard/leaderboard.handler';
+import { LeaderboardModule } from '../leaderboard/leaderboard.module';
 
 @Module({
   imports: [
@@ -40,6 +42,7 @@ import { VoteReminderToggleHandler } from './topgg/vote-reminder-toggle/vote-rem
     MemberModule,
     PvpModule,
     TopggModule,
+    LeaderboardModule,
   ],
   providers: [
     CommandsService,
@@ -57,6 +60,7 @@ import { VoteReminderToggleHandler } from './topgg/vote-reminder-toggle/vote-rem
     RaidHandler,
     VoteHandler,
     VoteReminderToggleHandler,
+    LeaderboardHandler,
   ],
   exports: [CommandsService],
 })
