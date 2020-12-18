@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import * as sinon from 'sinon';
 import * as moment from 'moment';
 
 import { VoteReminderService } from './vote-reminder.service';
@@ -22,7 +21,7 @@ describe('VoteReminderService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('vote reminder service'),
         MongooseModule.forFeature([
           { name: VOTE_REMINDER_MODEL_NAME, schema: VoteReminderSchema },
         ]),
@@ -36,8 +35,8 @@ describe('VoteReminderService', () => {
     );
   });
 
-  afterAll(async () => {
-    await closeInMongodConnection();
+  afterEach(async () => {
+    await closeInMongodConnection('vote reminder service');
   });
 
   it('should be defined', () => {

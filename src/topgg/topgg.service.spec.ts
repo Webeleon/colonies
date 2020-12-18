@@ -25,7 +25,7 @@ describe('TopggService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('topggService'),
         MongooseModule.forFeature([
           { name: VOTE_REMINDER_MODEL_NAME, schema: VoteReminderSchema },
         ]),
@@ -42,8 +42,8 @@ describe('TopggService', () => {
     service = module.get<TopggService>(TopggService);
   });
 
-  afterAll(async () => {
-    await closeInMongodConnection();
+  afterEach(async () => {
+    await closeInMongodConnection('topggService');
   });
 
   it('should be defined', () => {

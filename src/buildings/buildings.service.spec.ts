@@ -7,7 +7,6 @@ import {
   rootMongooseTestModule,
 } from '../test-utils/mongo/MongooseTestModule';
 import { BuildingSchema } from './buildings.model';
-import { ResourcesService } from '../resources/resources.service';
 import { ResourcesModule } from '../resources/resources.module';
 
 describe('BuildingsService', () => {
@@ -16,7 +15,7 @@ describe('BuildingsService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('building service spec'),
         MongooseModule.forFeature([
           { name: 'Buildings', schema: BuildingSchema },
         ]),
@@ -28,8 +27,8 @@ describe('BuildingsService', () => {
     service = module.get<BuildingsService>(BuildingsService);
   });
 
-  afterAll(async () => {
-    await closeInMongodConnection();
+  afterEach(async () => {
+    await closeInMongodConnection('building service spec');
   });
 
   it('should be defined', () => {

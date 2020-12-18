@@ -11,15 +11,15 @@ describe('WorkHandler', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), WorkModule],
+      imports: [rootMongooseTestModule('work handler'), WorkModule],
       providers: [WorkHandler],
     }).compile();
 
     workHandler = module.get<WorkHandler>(WorkHandler);
   });
 
-  afterAll(async () => {
-    await closeInMongodConnection();
+  afterEach(async () => {
+    await closeInMongodConnection('work handler');
   });
 
   it('should be defined', () => {

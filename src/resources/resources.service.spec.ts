@@ -2,7 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { ResourcesService } from './resources.service';
-import { rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../test-utils/mongo/MongooseTestModule';
 import { ResourcesSchema } from './resources.model';
 import { INITIAL_FOOD_SUPPLY } from '../game/resources.constants';
 
@@ -12,7 +15,7 @@ describe('RessourcesService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('resources service'),
         MongooseModule.forFeature([
           { name: 'Resources', schema: ResourcesSchema },
         ]),
@@ -21,6 +24,10 @@ describe('RessourcesService', () => {
     }).compile();
 
     service = module.get<ResourcesService>(ResourcesService);
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection('resources service');
   });
 
   it('should be defined', () => {

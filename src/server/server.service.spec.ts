@@ -2,24 +2,29 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { ServerService } from './server.service';
-import { ConfigService } from '../config/config.service';
 import { serverSchema } from './server.model';
-import { rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../test-utils/mongo/MongooseTestModule';
 
 describe('ServerService', () => {
   let service: ServerService;
 
   beforeEach(async () => {
-    const config = new ConfigService();
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('server service'),
         MongooseModule.forFeature([{ name: 'Server', schema: serverSchema }]),
       ],
       providers: [ServerService],
     }).compile();
 
     service = module.get<ServerService>(ServerService);
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection('server service');
   });
 
   it('should be defined', () => {

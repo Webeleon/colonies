@@ -20,7 +20,7 @@ describe('PvpShieldService', () => {
   beforeEach(async () => {
     testingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('pvp shield service'),
         MongooseModule.forFeature([
           { name: 'PvpShield', schema: PvpShieldSchema },
         ]),
@@ -34,8 +34,8 @@ describe('PvpShieldService', () => {
     );
   });
 
-  afterAll(async () => {
-    await closeInMongodConnection();
+  afterEach(async () => {
+    await closeInMongodConnection('pvp shield service');
   });
 
   afterEach(async () => {

@@ -11,7 +11,7 @@ describe('ResourcesHandler', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), ResourcesModule],
+      imports: [rootMongooseTestModule('resources handler'), ResourcesModule],
       providers: [ResourcesHandler],
     }).compile();
 
@@ -22,7 +22,7 @@ describe('ResourcesHandler', () => {
     expect(resourcesHandler).toBeDefined();
   });
 
-  afterAll(async () => {
-    await closeInMongodConnection();
+  afterEach(async () => {
+    await closeInMongodConnection('resources handler');
   });
 });

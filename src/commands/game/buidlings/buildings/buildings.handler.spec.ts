@@ -6,12 +6,12 @@ import {
   rootMongooseTestModule,
 } from '../../../../test-utils/mongo/MongooseTestModule';
 
-describe('BuildingsService', () => {
+describe('BuildingHandler', () => {
   let buildingsHandler: BuildingsHandler;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), BuildingsModule],
+      imports: [rootMongooseTestModule('building handler'), BuildingsModule],
       providers: [BuildingsHandler],
     }).compile();
 
@@ -19,7 +19,7 @@ describe('BuildingsService', () => {
   });
 
   afterAll(async () => {
-    await closeInMongodConnection();
+    await closeInMongodConnection('building handler');
   });
 
   it('should be defined', () => {

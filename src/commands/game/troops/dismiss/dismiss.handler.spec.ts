@@ -6,20 +6,20 @@ import {
   rootMongooseTestModule,
 } from '../../../../test-utils/mongo/MongooseTestModule';
 
-describe('DismissService', () => {
+describe('DismissHandler', () => {
   let service: DismissHandler;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), TroopsModule],
+      imports: [rootMongooseTestModule('dismiss handler'), TroopsModule],
       providers: [DismissHandler],
     }).compile();
 
     service = module.get<DismissHandler>(DismissHandler);
   });
 
-  afterAll(async () => {
-    await closeInMongodConnection();
+  afterEach(async () => {
+    await closeInMongodConnection('dismiss handler');
   });
 
   it('should be defined', () => {

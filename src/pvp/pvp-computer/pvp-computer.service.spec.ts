@@ -2,7 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as sinon from 'sinon';
 
 import { PvpComputerService } from './pvp-computer.service';
-import { rootMongooseTestModule } from '../../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../../test-utils/mongo/MongooseTestModule';
 import { TroopsModule } from '../../troops/troops.module';
 import { BuildingsModule } from '../../buildings/buildings.module';
 import { ResourcesModule } from '../../resources/resources.module';
@@ -10,7 +13,7 @@ import { ResourcesService } from '../../resources/resources.service';
 import { RaidResult } from '../pvp.interfaces';
 import { GOLD_PER_BATTLES } from '../../game/pvp.constants';
 import { TroopsService } from '../../troops/troops.service';
-import { TROOP_TYPE, TroopsDocument } from '../../troops/troops.interface';
+import { TROOP_TYPE } from '../../troops/troops.interface';
 
 describe('PvpComputerService', () => {
   let pvpComputerService: PvpComputerService;
@@ -19,7 +22,7 @@ describe('PvpComputerService', () => {
   beforeEach(async () => {
     testModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('pvp computer service'),
         TroopsModule,
         BuildingsModule,
         ResourcesModule,
@@ -28,6 +31,10 @@ describe('PvpComputerService', () => {
     }).compile();
 
     pvpComputerService = testModule.get<PvpComputerService>(PvpComputerService);
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection('pvp computer service');
   });
 
   it('should be defined', () => {

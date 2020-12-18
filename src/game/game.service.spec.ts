@@ -13,15 +13,20 @@ describe('GameService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), MemberModule, TroopsModule, BuildingsModule],
+      imports: [
+        rootMongooseTestModule('game service'),
+        MemberModule,
+        TroopsModule,
+        BuildingsModule,
+      ],
       providers: [GameService],
     }).compile();
 
     gameService = module.get<GameService>(GameService);
   });
 
-  afterAll(async () => {
-    await closeInMongodConnection();
+  afterEach(async () => {
+    await closeInMongodConnection('game service');
   });
 
   it('should be defined', () => {

@@ -14,15 +14,19 @@ describe('UpkeepTaxesService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), TroopsModule, BuildingsModule],
+      imports: [
+        rootMongooseTestModule('upkeep taxe service'),
+        TroopsModule,
+        BuildingsModule,
+      ],
       providers: [UpkeepTaxesService],
     }).compile();
 
     service = module.get<UpkeepTaxesService>(UpkeepTaxesService);
   });
 
-  afterAll(async () => {
-    await closeInMongodConnection();
+  afterEach(async () => {
+    await closeInMongodConnection('upkeep taxe service');
   });
 
   it('should be defined', () => {

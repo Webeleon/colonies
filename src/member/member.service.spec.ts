@@ -1,12 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Model, QueryCursor } from 'mongoose';
+import { Model } from 'mongoose';
 import * as moment from 'moment';
 
 import { MemberService } from './member.service';
-import { ConfigService } from '../config/config.service';
 import { memberSchema } from './member.model';
-import { rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../test-utils/mongo/MongooseTestModule';
 import { IMemberDocument } from './member.interface';
 
 describe('MemberService', () => {
@@ -16,13 +18,17 @@ describe('MemberService', () => {
   beforeEach(async () => {
     module = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('member service'),
         MongooseModule.forFeature([{ name: 'Member', schema: memberSchema }]),
       ],
       providers: [MemberService],
     }).compile();
 
     service = module.get<MemberService>(MemberService);
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection('member service');
   });
 
   it('should be defined', () => {

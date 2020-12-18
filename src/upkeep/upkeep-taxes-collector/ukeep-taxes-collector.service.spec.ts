@@ -1,6 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UpkeepTaxesCollectorService } from './upkeep-taxes-collector.service';
-import { rootMongooseTestModule } from '../../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../../test-utils/mongo/MongooseTestModule';
 import { ResourcesModule } from '../../resources/resources.module';
 import { TroopsModule } from '../../troops/troops.module';
 import { BuildingsModule } from '../../buildings/buildings.module';
@@ -11,7 +14,7 @@ describe('UkeepTaxesCollectorService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('upkeep taxe collector'),
         ResourcesModule,
         TroopsModule,
         BuildingsModule,
@@ -22,6 +25,10 @@ describe('UkeepTaxesCollectorService', () => {
     service = module.get<UpkeepTaxesCollectorService>(
       UpkeepTaxesCollectorService,
     );
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection('upkeep taxe collector');
   });
 
   it('should be defined', () => {

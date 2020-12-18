@@ -3,7 +3,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import * as _ from 'lodash';
 
 import { TroopsService } from './troops.service';
-import { rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../test-utils/mongo/MongooseTestModule';
 import { TroopsSchema } from './troops.model';
 import { ResourcesModule } from '../resources/resources.module';
 import { BuildingsModule } from '../buildings/buildings.module';
@@ -17,7 +20,7 @@ describe('TroopsService', () => {
   beforeEach(async () => {
     module = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('troops service'),
         MongooseModule.forFeature([{ name: 'Troops', schema: TroopsSchema }]),
         ResourcesModule,
         BuildingsModule,
@@ -26,6 +29,10 @@ describe('TroopsService', () => {
     }).compile();
 
     service = module.get<TroopsService>(TroopsService);
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection('troops service');
   });
 
   it('should be defined', () => {

@@ -1,6 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PvpNotifierService } from './pvp-notifier.service';
-import { rootMongooseTestModule } from '../../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../../test-utils/mongo/MongooseTestModule';
 import { DiscordModule } from '../../discord/discord.module';
 import { MemberModule } from '../../member/member.module';
 
@@ -9,11 +12,19 @@ describe('PvpNotifierService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule(), DiscordModule, MemberModule],
+      imports: [
+        rootMongooseTestModule('pvp notifier'),
+        DiscordModule,
+        MemberModule,
+      ],
       providers: [PvpNotifierService],
     }).compile();
 
     service = module.get<PvpNotifierService>(PvpNotifierService);
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection('pvp notifier');
   });
 
   it('should be defined', () => {

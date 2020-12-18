@@ -2,7 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { PvpService } from './pvp.service';
-import { rootMongooseTestModule } from '../test-utils/mongo/MongooseTestModule';
+import {
+  closeInMongodConnection,
+  rootMongooseTestModule,
+} from '../test-utils/mongo/MongooseTestModule';
 import { TroopsModule } from '../troops/troops.module';
 import { BuildingsModule } from '../buildings/buildings.module';
 import { ResourcesModule } from '../resources/resources.module';
@@ -19,7 +22,7 @@ describe('PvpService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
+        rootMongooseTestModule('pvp service'),
         MongooseModule.forFeature([
           { name: 'PvpShield', schema: PvpShieldSchema },
         ]),
@@ -38,6 +41,10 @@ describe('PvpService', () => {
     }).compile();
 
     service = module.get<PvpService>(PvpService);
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection('pvp service');
   });
 
   it('should be defined', () => {
