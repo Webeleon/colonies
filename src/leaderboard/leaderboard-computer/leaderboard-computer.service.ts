@@ -89,6 +89,12 @@ export class LeaderboardComputerService {
       const discordMember = await discord.users.cache.get(
         member.memberDiscordId,
       );
+
+      if (!discordMember) {
+        await leaderboard.delete();
+        return;
+      }
+
       leaderboard.username = discordMember.username;
       leaderboard.userAvatarUrl = discordMember.avatarURL();
       leaderboard.servers = await this.getMemberServers(member.memberDiscordId);
