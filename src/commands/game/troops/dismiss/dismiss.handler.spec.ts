@@ -11,7 +11,7 @@ describe('DismissHandler', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule('dismiss handler'), TroopsModule],
+      imports: [rootMongooseTestModule(), TroopsModule],
       providers: [DismissHandler],
     }).compile();
 
@@ -19,7 +19,7 @@ describe('DismissHandler', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('dismiss handler');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

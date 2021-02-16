@@ -11,7 +11,7 @@ describe('BuildingHandler', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule('building handler'), BuildingsModule],
+      imports: [rootMongooseTestModule(), BuildingsModule],
       providers: [BuildingsHandler],
     }).compile();
 
@@ -19,7 +19,7 @@ describe('BuildingHandler', () => {
   });
 
   afterAll(async () => {
-    await closeInMongodConnection('building handler');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

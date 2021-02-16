@@ -12,11 +12,7 @@ describe('RecruitHandler', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        rootMongooseTestModule('recruit handler'),
-        TroopsModule,
-        GameModule,
-      ],
+      imports: [rootMongooseTestModule(), TroopsModule, GameModule],
       providers: [RecruitHandler],
     }).compile();
 
@@ -24,7 +20,7 @@ describe('RecruitHandler', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('recruit handler');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

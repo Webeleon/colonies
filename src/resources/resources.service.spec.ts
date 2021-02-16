@@ -15,7 +15,7 @@ describe('RessourcesService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule('resources service'),
+        rootMongooseTestModule(),
         MongooseModule.forFeature([
           { name: 'Resources', schema: ResourcesSchema },
         ]),
@@ -27,7 +27,7 @@ describe('RessourcesService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('resources service');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

@@ -12,11 +12,7 @@ describe('RaidHandler', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        rootMongooseTestModule('raid handler'),
-        PvpModule,
-        DiscordModule,
-      ],
+      imports: [rootMongooseTestModule(), PvpModule, DiscordModule],
       providers: [RaidHandler],
     }).compile();
 
@@ -24,7 +20,7 @@ describe('RaidHandler', () => {
   });
 
   afterAll(async () => {
-    await closeInMongodConnection('raid handler');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

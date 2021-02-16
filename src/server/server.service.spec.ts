@@ -14,7 +14,7 @@ describe('ServerService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule('server service'),
+        rootMongooseTestModule(),
         MongooseModule.forFeature([{ name: 'Server', schema: serverSchema }]),
       ],
       providers: [ServerService],
@@ -24,7 +24,7 @@ describe('ServerService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('server service');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

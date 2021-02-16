@@ -14,7 +14,7 @@ describe('WorkService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule('work service'),
+        rootMongooseTestModule(),
         TroopsModule,
         ResourcesModule,
         GameModule,
@@ -26,7 +26,7 @@ describe('WorkService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('work service');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

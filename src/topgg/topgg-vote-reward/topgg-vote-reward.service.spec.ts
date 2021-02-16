@@ -24,7 +24,7 @@ describe('TopggVoteRewardService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule('topgg vote reward'),
+        rootMongooseTestModule(),
         DiscordModule,
         MemberModule,
         TroopsModule,
@@ -38,7 +38,7 @@ describe('TopggVoteRewardService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('topgg vote reward');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

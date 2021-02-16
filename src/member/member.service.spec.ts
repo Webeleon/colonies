@@ -18,7 +18,7 @@ describe('MemberService', () => {
   beforeEach(async () => {
     module = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule('member service'),
+        rootMongooseTestModule(),
         MongooseModule.forFeature([{ name: 'Member', schema: memberSchema }]),
       ],
       providers: [MemberService],
@@ -28,7 +28,7 @@ describe('MemberService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('member service');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {
