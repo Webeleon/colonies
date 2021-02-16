@@ -21,7 +21,7 @@ describe('VoteReminderService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule('vote reminder service'),
+        rootMongooseTestModule(),
         MongooseModule.forFeature([
           { name: VOTE_REMINDER_MODEL_NAME, schema: VoteReminderSchema },
         ]),
@@ -36,7 +36,7 @@ describe('VoteReminderService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('vote reminder service');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

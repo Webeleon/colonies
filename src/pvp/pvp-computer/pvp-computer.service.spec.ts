@@ -22,7 +22,7 @@ describe('PvpComputerService', () => {
   beforeEach(async () => {
     testModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule('pvp computer service'),
+        rootMongooseTestModule(),
         TroopsModule,
         BuildingsModule,
         ResourcesModule,
@@ -34,7 +34,7 @@ describe('PvpComputerService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('pvp computer service');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

@@ -62,14 +62,19 @@ export class UpkeepTaxesCollectorService {
         result.paid.food += troopsCost.food;
       } else {
         result.success = false;
+        await this.resourceService.consumeFood(
+          profile.memberDiscordId,
+          resources.food,
+        );
+        result.paid.food += resources.food;
         const missingPercentage = this.missingPercentage(
           troopsCost.food,
           resources.food,
         );
-        const guardsToDismiss = Math.round(
+        const guardsToDismiss = Math.floor(
           profile.troops.guards * (missingPercentage / 100),
         );
-        const lightInfantryToDismiss = Math.round(
+        const lightInfantryToDismiss = Math.floor(
           profile.troops.lightInfantry * (missingPercentage / 100),
         );
 
@@ -97,6 +102,11 @@ export class UpkeepTaxesCollectorService {
         result.paid.gold += troopsCost.gold;
       } else {
         result.success = false;
+        await this.resourceService.consumeGold(
+          profile.memberDiscordId,
+          resources.gold,
+        );
+        result.paid.gold += resources.gold;
         const missingPercentage = this.missingPercentage(
           troopsCost.gold,
           resources.gold,
@@ -109,6 +119,7 @@ export class UpkeepTaxesCollectorService {
           TROOP_TYPE.LIGHT_INFANTRY,
           lightInfantryToDismiss,
         );
+        result.casualties.troops.lightInfantry = lightInfantryToDismiss;
       }
     }
 
@@ -123,6 +134,11 @@ export class UpkeepTaxesCollectorService {
       } else {
         result.success = false;
         result.casualties.buildings.barraks = 1;
+        await this.resourceService.consumeBuildingMaterials(
+          profile.memberDiscordId,
+          resources.buildingMaterials,
+        );
+        result.paid.buildingMaterials += resources.buildingMaterials;
         await this.buildingsService.demolishBarrak(profile.memberDiscordId);
       }
     }
@@ -131,6 +147,6 @@ export class UpkeepTaxesCollectorService {
   }
 
   missingPercentage(toPay: number, available: number): number {
-    return Math.floor(100 - (toPay / available) * 100);
+    return Math.floor(((toPay - available) / toPay) * 100);
   }
 }

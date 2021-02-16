@@ -21,7 +21,7 @@ describe('UpkeepService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule('upkeep service'),
+        rootMongooseTestModule(),
         DiscordModule,
         TroopsModule,
         ResourcesModule,
@@ -40,7 +40,7 @@ describe('UpkeepService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('upkeep service');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

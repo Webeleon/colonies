@@ -12,11 +12,7 @@ describe('PvpNotifierService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        rootMongooseTestModule('pvp notifier'),
-        DiscordModule,
-        MemberModule,
-      ],
+      imports: [rootMongooseTestModule(), DiscordModule, MemberModule],
       providers: [PvpNotifierService],
     }).compile();
 
@@ -24,7 +20,7 @@ describe('PvpNotifierService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('pvp notifier');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

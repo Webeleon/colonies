@@ -20,7 +20,7 @@ describe('TroopsService', () => {
   beforeEach(async () => {
     module = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule('troops service'),
+        rootMongooseTestModule(),
         MongooseModule.forFeature([{ name: 'Troops', schema: TroopsSchema }]),
         ResourcesModule,
         BuildingsModule,
@@ -32,7 +32,7 @@ describe('TroopsService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('troops service');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

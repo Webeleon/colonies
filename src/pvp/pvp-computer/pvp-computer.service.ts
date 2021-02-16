@@ -44,11 +44,14 @@ export class PvpComputerService {
     const toDismiss =
       atkToDef <= 0 ? troops.lightInfantry : troops.lightInfantry - atkToDef;
 
-    await this.troopsService.dismissTroop(
-      attackerDiscordId,
-      TROOP_TYPE.LIGHT_INFANTRY,
-      toDismiss,
-    );
+    if (toDismiss) {
+      await this.troopsService.dismissTroop(
+        attackerDiscordId,
+        TROOP_TYPE.LIGHT_INFANTRY,
+        toDismiss,
+      );
+    }
+
     return {
       lightInfantry: toDismiss,
     };

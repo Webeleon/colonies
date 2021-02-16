@@ -1,17 +1,14 @@
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
+import * as mongoose from 'mongoose';
 
-const mongods = new Map<string, MongoMemoryServer>();
+let mongod: MongoMemoryServer;
 
-export const rootMongooseTestModule = (
-  key?: string,
-  options: MongooseModuleOptions = {},
-) =>
+export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
   MongooseModule.forRootAsync({
     useFactory: async () => {
-      const mongod = new MongoMemoryServer();
+      mongod = new MongoMemoryServer();
       const mongoUri = await mongod.getUri();
-      mongods.set(key || new Date().toString(), mongod);
       return {
         uri: mongoUri,
         useNewUrlParser: true,
@@ -22,6 +19,7 @@ export const rootMongooseTestModule = (
     },
   });
 
-export const closeInMongodConnection = async (key?: string) => {
-  if (mongods.get(key)) await mongods.get(key).stop();
+export const closeInMongodConnection = async () => {
+  await mongoose.disconnect();
+  if (mongod) await mongod.stop();
 };

@@ -12,11 +12,7 @@ describe('UpkeepNotifierService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        rootMongooseTestModule('upkeep notifier'),
-        DiscordModule,
-        MemberModule,
-      ],
+      imports: [rootMongooseTestModule(), DiscordModule, MemberModule],
       providers: [UpkeepNotifierService],
     }).compile();
 
@@ -24,7 +20,7 @@ describe('UpkeepNotifierService', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('upkeep notifier');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {

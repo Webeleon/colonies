@@ -11,7 +11,7 @@ describe('TroopsHandler', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [rootMongooseTestModule('troops report'), TroopsModule],
+      imports: [rootMongooseTestModule(), TroopsModule],
       providers: [TroopsReportHandler],
     }).compile();
 
@@ -19,7 +19,7 @@ describe('TroopsHandler', () => {
   });
 
   afterEach(async () => {
-    await closeInMongodConnection('troops report');
+    await closeInMongodConnection();
   });
 
   it('should be defined', () => {
