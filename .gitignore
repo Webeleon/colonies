@@ -37,3 +37,6 @@ lerna-debug.log*
 .env
 secrets
 .migrate
+
+# Local things
+DB_DUMPS
