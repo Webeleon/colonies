@@ -41,20 +41,6 @@ export class LeaderboardService {
       .limit(COUNT);
   }
 
-  async serverTop(
-    serverId: string,
-    topic: leaderboardTopics,
-  ): Promise<LeaderBoard[]> {
-    return this.leaderboardModel
-      .find({
-        servers: {
-          $in: [serverId],
-        },
-      })
-      .sort({ [this.topicToDbField(topic)]: -1 })
-      .limit(COUNT);
-  }
-
   topicToDbField(topic: leaderboardTopics): string {
     return {
       [leaderboardTopics.PVP]: 'pvpScore',
