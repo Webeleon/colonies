@@ -97,22 +97,10 @@ export class LeaderboardComputerService {
 
       leaderboard.username = discordMember.username;
       leaderboard.userAvatarUrl = discordMember.avatarURL();
-      leaderboard.servers = await this.getMemberServers(member.memberDiscordId);
     } catch (error) {
       Logger.error(error.message, error.stack);
     }
 
     await leaderboard.save();
-  }
-
-  private async getMemberServers(memberDiscordId): Promise<string[]> {
-    const guilds = await this.discordService.client.guilds.cache.values();
-    const servers = [];
-
-    for (const guild of guilds) {
-      const member = await guild.members.fetch(memberDiscordId);
-      if (member) servers.push(guild.id);
-    }
-    return servers;
   }
 }

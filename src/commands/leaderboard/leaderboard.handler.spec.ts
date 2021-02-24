@@ -68,24 +68,6 @@ describe('LeaderboardHandler', () => {
     });
   });
 
-  it(`extract scope`, async () => {
-    expect(handler.extractScope(`colonie leaderboard`)).toEqual(
-      leaderboardScopes.SERVER,
-    );
-    expect(handler.extractScope(`colonie leaderboard pvp`)).toEqual(
-      leaderboardScopes.SERVER,
-    );
-    expect(handler.extractScope(`colonie leaderboard server pvp`)).toEqual(
-      leaderboardScopes.SERVER,
-    );
-    expect(handler.extractScope(`colonie leaderboard global`)).toEqual(
-      leaderboardScopes.GLOBAL,
-    );
-    expect(handler.extractScope(`colonie leaderboard global pvp`)).toEqual(
-      leaderboardScopes.GLOBAL,
-    );
-  });
-
   it(`extract topic`, async () => {
     expect(handler.extractTopic(`colonie leaderboard`)).toEqual(
       leaderboardTopics.TOTAL,

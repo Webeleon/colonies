@@ -30,17 +30,9 @@ export class LeaderboardHandler implements ICommandHandler {
   }
 
   async execute(message: Message): Promise<void> {
-    const scope = this.extractScope(message.content);
     const topic = this.extractTopic(message.content);
 
-    if (scope === leaderboardScopes.GLOBAL) {
-      await this.send(message, await this.leaderboardService.globalTop(topic));
-    } else {
-      await this.send(
-        message,
-        await this.leaderboardService.serverTop(message.guild.id, topic),
-      );
-    }
+    await this.send(message, await this.leaderboardService.globalTop(topic));
   }
 
   private async send(message: Message, leaderboard: LeaderBoard[]) {
@@ -58,13 +50,6 @@ total: ${entry.score}, pvp: ${entry.pvpScore}, resources: ${entry.ressourcesScor
       embed.setThumbnail(leaderboard[0].userAvatarUrl);
 
     await message.channel.send(embed);
-  }
-
-  extractScope(content: string): leaderboardScopes {
-    const [cmd, scope] = content.match(this.regex);
-    return scope === leaderboardScopes.GLOBAL
-      ? leaderboardScopes.GLOBAL
-      : leaderboardScopes.SERVER;
   }
 
   extractTopic(content: string): leaderboardTopics {

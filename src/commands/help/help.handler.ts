@@ -61,12 +61,10 @@ export class HelpHandler implements ICommandHandler {
           value: `Send workers to the job. Can be used every ${WORK_LIMIT_IN_MINUTES} minutes.`,
         },
         {
-          name: 'colonie leaderboard <scope(optional)> <topic(optional)>',
-          value: `Display the top 10 players. available scopes: ${Object.values(
-            leaderboardScopes,
+          name: 'colonie leaderboard <topic(optional)>',
+          value: `Display the top 10 players. available topics: ${Object.values(
+            leaderboardTopics,
           )
-            .map((x) => '`' + x + '`')
-            .join(',')}. available topics: ${Object.values(leaderboardTopics)
             .map((x) => '`' + x + '`')
             .join(',')}`,
         },
