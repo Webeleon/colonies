@@ -40,3 +40,4 @@ secrets
 
 # Local things
 DB_DUMPS
+.eslintcache

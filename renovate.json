@@ -1,11 +1,10 @@
 {
-  "extends": ["config:base", "schedule:earlyMondays"],
+  "extends": ["config:base"],
   "packageRules": [
     {
       "updateTypes": ["minor", "patch", "pin", "digest"],
       "gitLabAutomerge": true,
       "automerge": true
     }
-  ],
-  "commitMessageAction": "chore: "
+  ]
 }
