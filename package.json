@@ -32,7 +32,7 @@
     "@nestjs/platform-express": "7.6.15",
     "@nestjs/schedule": "0.4.3",
     "dblapi.js": "2.4.1",
-    "discord.js": "12.5.1",
+    "discord.js": "12.5.3",
     "dotenv": "8.2.0",
     "migrate": "1.7.0",
     "moment": "2.29.1",
