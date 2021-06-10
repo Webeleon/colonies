@@ -29,17 +29,12 @@ describe('PvpShieldService', () => {
     }).compile();
 
     pvpShieldService = testingModule.get<PvpShieldService>(PvpShieldService);
-    PvpShieldModel = testingModule.get<Model<PvpShieldDocument>>(
-      'PvpShieldModel',
-    );
+    PvpShieldModel =
+      testingModule.get<Model<PvpShieldDocument>>('PvpShieldModel');
   });
 
   afterEach(async () => {
     await closeInMongodConnection();
-  });
-
-  afterEach(async () => {
-    await PvpShieldModel.deleteMany({});
   });
 
   it('should be defined', () => {
