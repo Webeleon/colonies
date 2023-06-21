@@ -40,7 +40,7 @@
     "mongoose": "5.13.13",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
-    "rxjs": "6.6.7",
+    "rxjs": "7.8.1",
     "sinon": "11.1.2"
   },
   "devDependencies": {
