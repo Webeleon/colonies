@@ -26,10 +26,10 @@
     "release": "standard-version"
   },
   "dependencies": {
-    "@nestjs/common": "7.6.18",
+    "@nestjs/common": "10.4.6",
     "@nestjs/core": "7.6.18",
     "@nestjs/mongoose": "8.0.1",
-    "@nestjs/platform-express": "7.6.18",
+    "@nestjs/platform-express": "10.4.6",
     "@nestjs/schedule": "1.0.2",
     "dblapi.js": "2.4.1",
     "discord.js": "12.5.3",
@@ -47,8 +47,8 @@
     "@commitlint/cli": "13.2.1",
     "@commitlint/config-conventional": "13.2.0",
     "@nestjs/cli": "7.6.0",
-    "@nestjs/schematics": "7.3.1",
-    "@nestjs/testing": "7.6.18",
+    "@nestjs/schematics": "10.2.2",
+    "@nestjs/testing": "10.4.6",
     "@types/express": "4.17.13",
     "@types/jest": "27.0.3",
     "@types/node": "14.17.34",
